@@ -1,0 +1,1704 @@
+#In this file we can see a comparison for selected parameters of null distribution equality of means. We compared the probability density (PDF), distribution function (CDF),
+quantiles (QF) and error of the first kind, which we calculated using the method of Numerical inversion CF of the null distribution of the LRT statistic 
+and the asymptotic Chi-squared distribution
+
+#EXAMPLE 1:
+
+library(CharFunToolR)
+n  <- 10
+p    <- 5
+q    <- 2
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityMeans(t,n,p,q,type)
+x    <- seq(0,15,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion pdf
+plot(x,result$pdf,type="l",col="green")
+df<- p*(q-1)/2
+
+pdfValues<-dchisq(x,df)
+# Asymptotic pdf
+lines(x, pdfValues, type = "l",col="blue")
+
+N<-50000
+W<-vector()
+
+for (i in 1:N) {
+ beta <- vector()
+  for (k in 1:p) {
+   beta[k] <- rbeta(1,(n-q-k+1)/2,(q-1)/2)
+ }
+ 
+ W[i] <- -(n/2)*log(prod(beta))  
+}
+
+hist(W,breaks = 30, probability = TRUE, col = 'lightblue', main = 'Histogram Statistiky', xlab = 'Hodnota štatistiky', ylab = 'Pravdepodobnosť')
+lines(density(W), col = 'darkred', lwd = 2)
+
+#EXAMPLE 2
+n    <- 20
+p    <- 5
+q    <- 2
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityMeans(t,n,p,q,type)
+x    <- seq(0,15,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+
+result <- cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion pdf
+plot(x,result$pdf,type="l",col="green")
+
+df<- p*(q-1)/2
+pdfValues<-dchisq(x,df)
+# Asymptotic pdf
+lines(x, pdfValues, type = "l",col="blue")
+
+# Number of simulated values
+N<- 50000
+
+#Cyklus of simulating rel values 
+
+W <- vector()  
+
+for (i in 1:N) {
+  beta <- vector()
+  for (k in 1:p) {
+    beta[k] <- rbeta(1,(n-q-k+1)/2,(q-1)/2)
+  }
+  
+  W[i] <- -(n/2)*log(prod(beta))  
+}
+
+
+hist(W,breaks = 30, probability = TRUE, col = 'lightblue', main = 'Histogram Bartlettovy Statistiky', xlab = 'Hodnota štatistiky', ylab = 'Pravdepodobnosť')
+
+lines(density(W), col = 'darkred', lwd = 2)
+
+#EXAMPLE 3
+n    <- 50
+p    <- 5
+q    <- 2
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityMeans(t,n,p,q,type)
+x    <- seq(0,10,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion pdf
+plot(x,result$pdf,type="l",col="green")
+
+df<- p*(q-1)/2
+pdfValues<-dchisq(x,df)
+
+# Asymptotic pdf
+lines(x, pdfValues, type = "l",col="blue")
+
+# Number of simulated values
+N<- 50000
+
+#Cyklus of simulating real values 
+
+W <- vector()  
+  for (i in 1:N) {
+    beta <- vector()
+    for (k in 1:p) {
+      beta[k] <- rbeta(1,(n-q-k+1)/2,(q-1)/2)
+    }
+    
+    W[i] <- -(n/2)*log(prod(beta))  
+  }
+  
+
+
+
+hist(W,breaks = 30, probability = TRUE, col = 'lightblue', main = 'Histogram štatistiky', xlab = 'Hodnota statistiky', ylab = 'Pravdepodobnosť')
+lines(density(W), col = 'darkred', lwd = 2)
+
+#EXAMPLE 4
+n    <- 100
+p    <- 5
+q    <- 2
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityMeans(t,n,p,q,type)
+x    <- seq(0,10,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion pdf
+plot(x,result$pdf,type="l",col="green")
+
+df<- p*(q-1)/2
+pdfValues<-dchisq(x,df)
+
+# Asymptotic pdf
+lines(x, pdfValues, type = "l",col="blue")
+
+# Number of simulated values
+N<- 50000
+
+#Cyklus of simulating real values 
+W <- vector()  
+for (i in 1:N) {
+  beta <- vector()
+  for (k in 1:p) {
+    beta[k] <- rbeta(1,(n-q-k+1)/2,(q-1)/2)
+  }
+  
+  W[i] <- -(n/2)*log(prod(beta))  
+}
+
+
+hist(W,breaks = 30, probability = TRUE, col = 'lightblue', main = 'Histogram Bartlettovy Statistiky', xlab = 'Hodnota statistiky', ylab = 'Pravdepodobnosť')
+lines(density(W), col = 'darkred', lwd = 2)
+
+#EXAMPLE 5
+n    <- 500
+p    <- 5
+q    <- 2
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityMeans(t,n,p,q,type)
+x    <- seq(0,10,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion pdf
+plot(x,result$pdf,type="l",col="green")
+
+df<- p*(q-1)/2
+pdfValues<-dchisq(x,df)
+# Asymptotic pdf
+lines(x, pdfValues, type = "l",col="blue")
+
+# Number of simulated values
+N<- 50000
+
+#Cyklus of simulating real values 
+W <- vector()  
+for (i in 1:N) {
+  beta <- vector()
+  for (k in 1:p) {
+    beta[k] <- rbeta(1,(n-q-k+1)/2,(q-1)/2)
+  }
+  
+  W[i] <- -(n/2)*log(prod(beta))  
+}
+
+hist(W,breaks = 30, probability = TRUE, col = 'lightblue', main = 'Histogram štatistiky', xlab = 'Hodnota štatistiky', ylab = 'Pravdepodobnosť')
+lines(density(W), col = 'darkred', lwd = 2)
+
+#EXAMPLE 6
+n    <- 1000
+p    <- 5
+q    <- 2
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityMeans(t,n,p,q,type)
+x    <- seq(0,10,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion pdf
+plot(x,result$pdf,type="l",col="green")
+
+
+df<- p*(q-1)/2
+pdfValues<-dchisq(x,df)
+# Asymptotic pdf
+lines(x, pdfValues, type = "l",col="blue")
+
+# Number of simulated values
+N<- 50000
+
+#Cyklus of simulating real values 
+W <- vector()  # začínáme s prvním členem
+
+for (i in 1:N) {
+  beta <- vector()
+  for (k in 1:p) {
+    beta[k] <- rbeta(1,(n-q-k+1)/2,(q-1)/2)
+  }
+  
+  W[i] <- -(n/2)*log(prod(beta))  
+}
+
+hist(W,breaks = 30, probability = TRUE, col = 'lightblue', main = 'Histogram štatistiky', xlab = 'Hodnota štatistiky', ylab = 'Pravdepodobnosť')
+lines(density(W), col = 'darkred', lwd = 2)
+
+#EXAMPLE 7
+n    <- 10000
+p    <- 5
+q    <- 2
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityMeans(t,n,p,q,type)
+x    <- seq(0,10,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion pdf
+plot(x,result$pdf,type="l",col="green")
+
+df<- p*(q-1)/2
+pdfValues<-dchisq(x,df)
+# Asymptotic pdf
+lines(x, pdfValues, type = "l",col="blue")
+
+# Number of simulated values
+N<- 50000
+
+#Cyklus of simulating real values 
+W <- vector()  
+for (i in 1:N) {
+  beta <- vector()
+  for (k in 1:p) {
+    beta[k] <- rbeta(1,(n-q-k+1)/2,(q-1)/2)
+  }
+  
+  W[i] <- -(n/2)*log(prod(beta))  
+}
+
+
+hist(W,breaks = 30, probability = TRUE, col = 'lightblue', main = 'Histogram  štatistiky', xlab = 'Hodnota štatistiky', ylab = 'Pravdepodobnosť')
+lines(density(W), col = 'darkred', lwd = 2)
+
+#EXAMPLE 8
+n    <- 100
+p    <- 5
+q    <- 5
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityMeans(t,n,p,q,type)
+x    <- seq(0,30,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion pdf
+plot(x,result$pdf,type="l",col="green")
+
+
+df<- p*(q-1)/2
+pdfValues<-dchisq(x,df)
+# Asymptotic pdf
+lines(x, pdfValues, type = "l",col="blue")
+
+# Number of simulated values
+N<- 50000
+
+#Cyklus of simulating real values 
+W <- vector()  
+for (i in 1:N) {
+  beta <- vector()
+  for (k in 1:p) {
+    beta[k] <- rbeta(1,(n-q-k+1)/2,(q-1)/2)
+  }
+  
+  W[i] <- -(n/2)*log(prod(beta))  
+}
+
+hist(W,breaks = 30, probability = TRUE, col = 'lightblue', main = 'Histogram  štatistiky', xlab = 'Hodnota štatistiky', ylab = 'Pravdepodobnosť')
+lines(density(W), col = 'darkred', lwd = 2)
+
+#EXAMPLE 9
+n    <- 1000
+p    <- 5
+q    <- 5
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityMeans(t,n,p,q,type)
+x    <- seq(0,30,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion pdf
+plot(x,result$pdf,type="l",col="green")
+
+df<- p*(q-1)/2
+pdfValues<-dchisq(x,df)
+# Asymptotic pdf
+lines(x, pdfValues, type = "l",col="blue")
+
+# Number of simulated values
+N<- 50000
+
+#Cyklus of simulating rel values 
+
+W <- vector()  
+
+for (i in 1:N) {
+  beta <- vector()
+  for (k in 1:p) {
+    beta[k] <- rbeta(1,(n-q-k+1)/2,(q-1)/2)
+  }
+  
+  W[i] <- -(n/2)*log(prod(beta))  
+}
+
+hist(W,breaks = 30, probability = TRUE, col = 'lightblue', main = 'Histogram  štatistiky', xlab = 'Hodnota štatistiky', ylab = 'Pravdepodobnosť')
+lines(density(W), col = 'darkred', lwd = 2)
+
+#EXAMPLE 10
+n    <- 10000
+p    <- 5
+q    <- 5
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityMeans(t,n,p,q,type)
+x    <- seq(0,30,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion pdf
+plot(x,result$pdf,type="l",col="green")
+
+df<- p*(q-1)/2
+pdfValues<-dchisq(x,df)
+# Asymptotic pdf
+lines(x, pdfValues, type = "l",col="blue")
+
+# Number of simulated values
+N<- 50000
+
+#Cyklus of simulating rel values 
+
+W <- vector()  
+
+for (i in 1:N) {
+  beta <- vector()
+  for (k in 1:p) {
+    beta[k] <- rbeta(1,(n-q-k+1)/2,(q-1)/2)
+  }
+  
+  W[i] <- -(n/2)*log(prod(beta))  
+}
+
+
+# Vytvoření histogramu
+hist(W,breaks = 30, probability = TRUE, col = 'lightblue', main = 'Histogram  štatistiky', xlab = 'Hodnota štatistiky', ylab = 'Pravdepodobnosť')
+lines(density(W), col = 'darkred', lwd = 2)
+
+
+#EXAMPLE 11
+n    <- 100
+p    <- 5
+q    <- 10
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityMeans(t,n,p,q,type)
+x    <- seq(0,40,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion pdf
+plot(x,result$pdf,type="l",col="green")
+
+df<- p*(q-1)/2
+pdfValues<-dchisq(x,df)
+# Asymptotic pdf
+lines(x, pdfValues, type = "l",col="blue")
+
+# Number of simulated values
+N<- 50000
+
+#Cyklus of simulating real values 
+
+W <- vector()  
+for (i in 1:N) {
+  beta <- vector()
+  for (k in 1:p) {
+    beta[k] <- rbeta(1,(n-q-k+1)/2,(q-1)/2)
+  }
+  
+  W[i] <- -(n/2)*log(prod(beta))  
+}
+
+hist(W,breaks = 30, probability = TRUE, col = 'lightblue', main = 'Histogram  štatistiky', xlab = 'Hodnota štatistiky', ylab = 'Pravdepodobnosť')
+lines(density(W), col = 'darkred', lwd = 2)
+
+#EXAMPLE 12
+n    <- 10000
+p    <- 5
+q    <- 10
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityMeans(t,n,p,q,type)
+x    <- seq(0,50,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion pdf
+plot(x,result$pdf,type="l",col="green")
+
+df<- p*(q-1)/2
+pdfValues<-dchisq(x,df)
+# Asymptotic pdf
+lines(x, pdfValues, type = "l",col="blue")
+
+# Number of simulated values
+N<- 50000
+
+#Cyklus of simulating real values 
+
+W <- vector()  
+
+for (i in 1:N) {
+  beta <- vector()
+  for (k in 1:p) {
+    beta[k] <- rbeta(1,(n-q-k+1)/2,(q-1)/2)
+  }
+  
+  W[i] <- -(n/2)*log(prod(beta))  
+}
+
+hist(W,breaks = 30, probability = TRUE, col = 'lightblue', main = 'Histogram  štatistiky', xlab = 'Hodnota štatistiky', ylab = 'Pravdepodobnosť')
+lines(density(W), col = 'darkred', lwd = 2)
+
+#EXAMPLE 13
+n    <- 10000
+p    <- 5
+q    <- 10
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityMeans(t,n,p,q,type)
+x    <- seq(0,50,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion pdf
+plot(x,result$pdf,type="l",col="green")
+
+
+df<- p*(q-1)/2
+pdfValues<-dchisq(x,df)
+# Asymptotic pdf
+lines(x, pdfValues, type = "l",col="blue")
+
+# Number of simulated values
+N<- 50000
+
+#Cyklus of simulating rel values 
+
+W <- vector()  
+
+for (i in 1:N) {
+  beta <- vector()
+  for (k in 1:p) {
+    beta[k] <- rbeta(1,(n-q-k+1)/2,(q-1)/2)
+  }
+  
+  W[i] <- -(n/2)*log(prod(beta))  
+}
+
+
+hist(W,breaks = 30, probability = TRUE, col = 'lightblue', main = 'Histogram  štatistiky', xlab = 'Hodnota štatistiky', ylab = 'Pravdepodobnosť')
+
+lines(density(W), col = 'darkred', lwd = 2)
+
+
+#cdf
+#EXAMPLE 1:
+n    <- 10
+p    <- 5
+q    <- 2
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityMeans(t,n,p,q,type)
+x    <- seq(0,20,length.out=201)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion pdf
+plot(x,result$cdf,type="l",col="green",ylab = "CDF")
+
+df<- p*(q-1)/2
+cdfValues<-pchisq(x,df)
+# Asymptotic cdf
+lines(x, cdfValues, type = "l",col="blue")
+
+# Number of simulated values
+N<- 50000
+
+#Cyklus of simulating real values 
+W <- vector()  
+for (i in 1:N) {
+  beta <- vector()
+  for (k in 1:p) {
+    beta[k] <- rbeta(1,(n-q-k+1)/2,(q-1)/2)
+  }
+  
+  W[i] <- -(n/2)*log(prod(beta))  
+}
+
+lines(ecdf(W), col = 'darkred', lwd = 2)
+
+#EXAMPLE 2
+n    <- 20
+p    <- 5
+q    <- 2
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityMeans(t,n,p,q,type)
+x    <- seq(0,15,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion cdf
+plot(x,result$cdf,type="l",col="green")
+
+df<- p*(q-1)/2
+cdfValues<-pchisq(x,df)
+# Asymptotic pdf
+lines(x, cdfValues, type = "l",col="blue")
+
+# Number of simulated values
+N<- 50000
+
+#Cyklus of simulating real values 
+W <- vector()  
+for (i in 1:N) {
+  beta <- vector()
+  for (k in 1:p) {
+    beta[k] <- rbeta(1,(n-q-k+1)/2,(q-1)/2)
+  }
+  
+  W[i] <- -(n/2)*log(prod(beta))  
+}
+
+
+lines(ecdf(W), col = 'darkred', lwd = 2)
+
+#EXAMPLE 3
+n    <- 50
+p    <- 5
+q    <- 2
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityMeans(t,n,p,q,type)
+x    <- seq(0,10,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion cdf
+plot(x,result$cdf,type="l",col="green")
+
+df<- df<- p*(q-1)/2
+cdfValues<-pchisq(x,df)
+# Asymptotic pdf
+lines(x, cdfValues, type = "l",col="blue")
+
+# Number of simulated values
+N<- 50000
+
+#Cyklus of simulating real values 
+W <- vector()  
+for (i in 1:N) {
+  beta <- vector()
+  for (k in 1:p) {
+    beta[k] <- rbeta(1,(n-q-k+1)/2,(q-1)/2)
+  }
+  
+  W[i] <- -(n/2)*log(prod(beta))  
+}
+
+
+lines(ecdf(W), col = 'darkred', lwd = 2)
+
+#EXAMPLE 4
+n    <- 100
+p    <- 5
+q    <- 2
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityMeans(t,n,p,q,type)
+x    <- seq(0,10,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion cdf
+plot(x,result$cdf,type="l",col="green")
+
+df<- p*(q-1)/2
+cdfValues<-pchisq(x,df)
+# Asymptotic pdf
+lines(x, cdfValues, type = "l",col="blue")
+
+# Number of simulated values
+N<- 50000
+
+#Cyklus of simulating real values 
+W <- vector()  
+for (i in 1:N) {
+  beta <- vector()
+  for (k in 1:p) {
+    beta[k] <- rbeta(1,(n-q-k+1)/2,(q-1)/2)
+  }
+  
+  W[i] <- -(n/2)*log(prod(beta))  
+}
+
+lines(ecdf(W), col = 'darkred', lwd = 2)
+
+#EXAMPLE 5
+n    <- 500
+p    <- 5
+q    <- 2
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityMeans(t,n,p,q,type)
+x    <- seq(0,10,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion cdf
+plot(x,result$cdf,type="l",col="green",ylab = "CDF")
+
+df<- df<- p*(q-1)/2
+cdfValues<-pchisq(x,df)
+# Asymptotic pdf
+lines(x, cdfValues, type = "l",col="blue")
+
+# Number of simulated values
+N<- 50000
+
+#Cyklus of simulating real values 
+
+W <- vector()  
+
+for (i in 1:N) {
+  beta <- vector()
+  for (k in 1:p) {
+    beta[k] <- rbeta(1,(n-q-k+1)/2,(q-1)/2)
+  }
+  
+  W[i] <- -(n/2)*log(prod(beta))  
+}
+
+lines(ecdf(W), col = 'darkred', lwd = 2)
+
+#EXAMPLE 6
+n    <- 1000
+p    <- 5
+q    <- 2
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityMeans(t,n,p,q,type)
+x    <- seq(0,10,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion cdf
+plot(x,result$cdf,type="l",col="green")
+
+df<- p*(q-1)/2
+cdfValues<-pchisq(x,df)
+# Asymptotic pdf
+lines(x, cdfValues, type = "l",col="blue")
+
+# Number of simulated values
+N<- 50000
+
+#Cyklus of simulating real values 
+
+W <- vector()  
+
+for (i in 1:N) {
+  beta <- vector()
+  for (k in 1:p) {
+    beta[k] <- rbeta(1,(n-q-k+1)/2,(q-1)/2)
+  }
+  
+  W[i] <- -(n/2)*log(prod(beta))  
+}
+
+lines(ecdf(W), col = 'darkred', lwd = 2)
+
+#EXAMPLE 7
+n    <- 10000
+p    <- 5
+q    <- 2
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityMeans(t,n,p,q,type)
+x    <- seq(0,10,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion cdf
+plot(x,result$cdf,type="l",col="green",ylab = "CDF")
+
+df<- p*(q-1)/2
+cdfValues<-pchisq(x,df)
+# Asymptotic pdf
+lines(x, cdfValues, type = "l",col="blue")
+
+# Number of simulated values
+N<- 50000
+
+#Cyklus of simulating real values 
+
+W <- vector()  
+
+for (i in 1:N) {
+  beta <- vector()
+  for (k in 1:p) {
+    beta[k] <- rbeta(1,(n-q-k+1)/2,(q-1)/2)
+  }
+  
+  W[i] <- -(n/2)*log(prod(beta))  
+}
+
+
+lines(ecdf(W), col = 'darkred', lwd = 2)
+
+#EXAMPLE 8
+n    <- 100
+p    <- 5
+q    <- 5
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityMeans(t,n,p,q,type)
+x    <- seq(0,20,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion cdf
+plot(x,result$cdf,type="l",col="green")
+df<- p*(q-1)/2
+cdfValues<-pchisq(x,df)
+# Asymptotic pdf
+lines(x, cdfValues, type = "l",col="blue")
+
+# Number of simulated values
+N<- 50000
+
+#Cyklus of simulating real values 
+
+W <- vector()  
+for (i in 1:N) {
+  beta <- vector()
+  for (k in 1:p) {
+    beta[k] <- rbeta(1,(n-q-k+1)/2,(q-1)/2)
+  }
+  
+  W[i] <- -(n/2)*log(prod(beta))  
+}
+
+
+lines(ecdf(W), col = 'darkred', lwd = 2)
+
+#EXAMPLE 9
+n    <- 1000
+p    <- 5
+q    <- 5
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityMeans(t,n,p,q,type)
+x    <- seq(0,20,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion cdf
+plot(x,result$cdf,type="l",col="green")
+
+df<- p*(q-1)/2
+cdfValues<-pchisq(x,df)
+# Asymptotic pdf
+lines(x, cdfValues, type = "l",col="blue")
+
+# Number of simulated values
+N<- 50000
+
+#Cyklus of simulating real values 
+
+W <- vector()  
+
+for (i in 1:N) {
+  beta <- vector()
+  for (k in 1:p) {
+    beta[k] <- rbeta(1,(n-q-k+1)/2,(q-1)/2)
+  }
+  
+  W[i] <- -(n/2)*log(prod(beta))  
+}
+
+
+lines(ecdf(W), col = 'darkred', lwd = 2)
+
+#EXAMPLE 10
+n    <- 10000
+p    <- 5
+q    <- 5
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityMeans(t,n,p,q,type)
+x    <- seq(0,20,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion cdf
+plot(x,result$cdf,type="l",col="green")
+
+df<- p*(q-1)/2
+cdfValues<-pchisq(x,df)
+# Asymptotic pdf
+lines(x, cdfValues, type = "l",col="blue")
+
+# Number of simulated values
+N<- 50000
+
+#Cyklus of simulating real values 
+
+W <- vector()  
+for (i in 1:N) {
+  beta <- vector()
+  for (k in 1:p) {
+    beta[k] <- rbeta(1,(n-q-k+1)/2,(q-1)/2)
+  }
+  
+  W[i] <- -(n/2)*log(prod(beta))  
+}
+
+
+lines(ecdf(W), col = 'darkred', lwd = 2)
+
+
+#EXAMPLE 11
+n    <- 100
+p    <- 5
+q    <- 10
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityMeans(t,n,p,q,type)
+x    <- seq(0,50,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion cdf
+plot(x,result$cdf,type="l",col="green",ylab = "CDF")
+
+df<- p*(q-1)/2
+cdfValues<-pchisq(x,df)
+# Asymptotic pdf
+lines(x, cdfValues, type = "l",col="blue")
+
+# Number of simulated values
+N<- 50000
+
+#Cyklus of simulating real values 
+W <- vector()  
+
+for (i in 1:N) {
+  beta <- vector()
+  for (k in 1:p) {
+    beta[k] <- rbeta(1,(n-q-k+1)/2,(q-1)/2)
+  }
+  
+  W[i] <- -(n/2)*log(prod(beta))  
+}
+
+
+lines(ecdf(W), col = 'darkred', lwd = 2)
+
+#EXAMPLE 12
+n    <- 1000
+p    <- 5
+q    <- 10
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityMeans(t,n,p,q,type)
+x    <- seq(0,50,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion cdf
+plot(x,result$cdf,type="l",col="green",ylab = "CDF")
+
+df<- p*(q-1)/2
+cdfValues<-pchisq(x,df)
+# Asymptotic pdf
+lines(x, cdfValues, type = "l",col="blue")
+
+# Number of simulated values
+N<- 50000
+
+#Cyklus of simulating real values 
+W <- vector()  
+for (i in 1:N) {
+  beta <- vector()
+  for (k in 1:p) {
+    beta[k] <- rbeta(1,(n-q-k+1)/2,(q-1)/2)
+  }
+  
+  W[i] <- -(n/2)*log(prod(beta))  
+}
+
+
+lines(ecdf(W), col = 'darkred', lwd = 2)
+
+#EXAMPLE 13
+n    <- 10000
+p    <- 5
+q    <- 10
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityMeans(t,n,p,q,type)
+x    <- seq(0,50,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion cdf
+plot(x,result$cdf,type="l",col="green",ylab = "CDF")
+
+df<- p*(q-1)/2
+cdfValues<-pchisq(x,df)
+# Asymptotic pdf
+lines(x, cdfValues, type = "l",col="blue")
+
+# Number of simulated values
+N<- 50000
+
+#Cyklus of simulating real values 
+W <- vector()  
+for (i in 1:N) {
+  beta <- vector()
+  for (k in 1:p) {
+    beta[k] <- rbeta(1,(n-q-k+1)/2,(q-1)/2)
+  }
+  
+  W[i] <- -(n/2)*log(prod(beta))  
+}
+
+lines(ecdf(W), col = 'darkred', lwd = 2)
+
+
+#EXAMPLE 1:
+n    <- 10
+p    <- 5
+q    <- 2
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityMeans(t,n,p,q,type)
+x    <- seq(0,20,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+df<- p*(q-1)/2
+
+quantiles<-qchisq(prob,df)
+
+
+# Number of simulated values
+N<- 50000
+
+#Cyklus of simulating real values 
+W <- vector()  
+for (i in 1:N) {
+  beta <- vector()
+  for (k in 1:p) {
+    beta[k] <- rbeta(1,(n-q-k+1)/2,(q-1)/2)
+  }
+  
+  W[i] <- -(n/2)*log(prod(beta))  
+}
+
+empiric_qf <- quantile(W,prob)
+
+result$qf
+quantiles
+empiric_qf
+
+rejected <- sum(W > result$qf[2])
+# Error of the first kind
+false_positive_rate1 <- rejected / length(W)
+
+rejected <- sum(W > quantiles[2])
+# Error of the first kind
+false_positive_rate2 <- rejected / length(W)
+
+rejected <- sum(W > empiric_qf[2])
+# Error of the first kind
+false_positive_rate3 <- rejected / length(W)
+
+false_positive_rate1
+false_positive_rate2
+false_positive_rate3
+
+#EXAMPLE 2
+n    <- 20
+p    <- 5
+q    <- 2
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityMeans(t,n,p,q,type)
+x    <- seq(0,20,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+df<- p*(q-1)/2
+
+quantiles<-qchisq(prob,df)
+
+
+# Number of simulated values
+N<- 50000
+
+#Cyklus of simulating real values 
+W <- vector()  
+for (i in 1:N) {
+  beta <- vector()
+  for (k in 1:p) {
+    beta[k] <- rbeta(1,(n-q-k+1)/2,(q-1)/2)
+  }
+  
+  W[i] <- -(n/2)*log(prod(beta))  
+}
+
+empiric_qf <- quantile(W,prob)
+
+result$qf
+quantiles
+empiric_qf
+
+rejected <- sum(W > result$qf[2])
+# Error of the first kind
+false_positive_rate1 <- rejected / length(W)
+
+rejected <- sum(W > quantiles[2])
+# Error of the first kind
+false_positive_rate2 <- rejected / length(W)
+
+rejected <- sum(W > empiric_qf[2])
+# Error of the first kind
+false_positive_rate3 <- rejected / length(W)
+
+false_positive_rate1
+false_positive_rate2
+false_positive_rate3
+
+#EXAMPLE 3
+n    <- 50
+p    <- 5
+q    <- 2
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityMeans(t,n,p,q,type)
+x    <- seq(0,20,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+df<- p*(q-1)/2
+
+quantiles<-qchisq(prob,df)
+
+
+# Number of simulated values
+N<- 50000
+
+#Cyklus of simulating real values 
+
+W <- vector()  
+
+for (i in 1:N) {
+  beta <- vector()
+  for (k in 1:p) {
+    beta[k] <- rbeta(1,(n-q-k+1)/2,(q-1)/2)
+  }
+  
+  W[i] <- -(n/2)*log(prod(beta))  
+}
+
+empiric_qf <- quantile(W,prob)
+
+result$qf
+quantiles
+empiric_qf
+
+rejected <- sum(W > result$qf[2])
+# Error of the first kind
+false_positive_rate1 <- rejected / length(W)
+
+rejected <- sum(W > quantiles[2])
+# Error of the first kind
+false_positive_rate2 <- rejected / length(W)
+
+rejected <- sum(W > empiric_qf[2])
+# Error of the first kind
+false_positive_rate3 <- rejected / length(W)
+
+false_positive_rate1
+false_positive_rate2
+false_positive_rate3
+
+#EXAMPLE 4
+n    <- 100
+p    <- 5
+q    <- 2
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityMeans(t,n,p,q,type)
+x    <- seq(0,20,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+df<- p*(q-1)/2
+
+quantiles<-qchisq(prob,df)
+
+
+# Number of simulated values
+N<- 50000
+
+#Cyklus of simulating real values 
+W <- vector()  
+
+for (i in 1:N) {
+  beta <- vector()
+  for (k in 1:p) {
+    beta[k] <- rbeta(1,(n-q-k+1)/2,(q-1)/2)
+  }
+  
+  W[i] <- -(n/2)*log(prod(beta))  
+}
+
+empiric_qf <- quantile(W,prob)
+
+result$qf
+quantiles
+empiric_qf
+
+rejected <- sum(W > result$qf[2])
+# Error of the first kind
+false_positive_rate1 <- rejected / length(W)
+
+rejected <- sum(W > quantiles[2])
+# Error of the first kind
+false_positive_rate2 <- rejected / length(W)
+
+rejected <- sum(W > empiric_qf[2])
+# Error of the first kind
+false_positive_rate3 <- rejected / length(W)
+
+false_positive_rate1
+false_positive_rate2
+false_positive_rate3
+
+#EXAMPLE 5
+n    <- 500
+p    <- 5
+q    <- 2
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityMeans(t,n,p,q,type)
+x    <- seq(0,20,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+df<- p*(q-1)/2
+
+quantiles<-qchisq(prob,df)
+
+
+# Number of simulated values
+N<- 50000
+
+#Cyklus of simulating real values 
+
+W <- vector()  
+for (i in 1:N) {
+  beta <- vector()
+  for (k in 1:p) {
+    beta[k] <- rbeta(1,(n-q-k+1)/2,(q-1)/2)
+  }
+  
+  W[i] <- -(n/2)*log(prod(beta))  
+}
+
+empiric_qf <- quantile(W,prob)
+
+result$qf
+quantiles
+empiric_qf
+
+rejected <- sum(W > result$qf[2])
+# Error of the first kind
+false_positive_rate1 <- rejected / length(W)
+
+rejected <- sum(W > quantiles[2])
+# Error of the first kind
+false_positive_rate2 <- rejected / length(W)
+
+rejected <- sum(W > empiric_qf[2])
+# Error of the first kind
+false_positive_rate3 <- rejected / length(W)
+
+false_positive_rate1
+false_positive_rate2
+false_positive_rate3
+
+#EXAMPLE 6
+n    <- 1000
+p    <- 5
+q    <- 2
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityMeans(t,n,p,q,type)
+x    <- seq(0,20,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+df<- p*(q-1)/2
+
+quantiles<-qchisq(prob,df)
+
+
+# Number of simulated values
+N<- 50000
+
+#Cyklus of simulating real values 
+W <- vector()  
+for (i in 1:N) {
+  beta <- vector()
+  for (k in 1:p) {
+    beta[k] <- rbeta(1,(n-q-k+1)/2,(q-1)/2)
+  }
+  
+  W[i] <- -(n/2)*log(prod(beta))  
+}
+
+empiric_qf <- quantile(W,prob)
+
+result$qf
+quantiles
+empiric_qf
+
+rejected <- sum(W > result$qf[2])
+# Error of the first kind
+false_positive_rate1 <- rejected / length(W)
+
+rejected <- sum(W > quantiles[2])
+# Error of the first kind
+false_positive_rate2 <- rejected / length(W)
+
+rejected <- sum(W > empiric_qf[2])
+# Error of the first kind
+false_positive_rate3 <- rejected / length(W)
+
+false_positive_rate1
+false_positive_rate2
+false_positive_rate3
+
+#EXAMPLE 7
+n    <- 10000
+p    <- 5
+q    <- 2
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityMeans(t,n,p,q,type)
+x    <- seq(0,20,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+df<- p*(q-1)/2
+
+quantiles<-qchisq(prob,df)
+
+
+# Number of simulated values
+N<- 50000
+
+#Cyklus of simulating real values 
+W <- vector()  
+for (i in 1:N) {
+  beta <- vector()
+  for (k in 1:p) {
+    beta[k] <- rbeta(1,(n-q-k+1)/2,(q-1)/2)
+  }
+  
+  W[i] <- -(n/2)*log(prod(beta))  
+}
+
+empiric_qf <- quantile(W,prob)
+
+result$qf
+quantiles
+empiric_qf
+
+rejected <- sum(W > result$qf[2])
+# Error of the first kind
+false_positive_rate1 <- rejected / length(W)
+
+rejected <- sum(W > quantiles[2])
+# Error of the first kind
+false_positive_rate2 <- rejected / length(W)
+
+rejected <- sum(W > empiric_qf[2])
+# Error of the first kind
+false_positive_rate3 <- rejected / length(W)
+
+false_positive_rate1
+false_positive_rate2
+false_positive_rate3
+
+#EXAMPLE 8
+n    <- 100
+p    <- 5
+q    <- 5
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityMeans(t,n,p,q,type)
+x    <- seq(0,20,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+df<- p*(q-1)/2
+
+quantiles<-qchisq(prob,df)
+
+
+# Number of simulated values
+N<- 50000
+
+#Cyklus of simulating real values 
+W <- vector()  
+for (i in 1:N) {
+  beta <- vector()
+  for (k in 1:p) {
+    beta[k] <- rbeta(1,(n-q-k+1)/2,(q-1)/2)
+  }
+  
+  W[i] <- -(n/2)*log(prod(beta))  
+}
+
+
+empiric_qf <- quantile(W,prob)
+
+result$qf
+quantiles
+empiric_qf
+
+rejected <- sum(W > result$qf[2])
+# Error of the first kind
+false_positive_rate1 <- rejected / length(W)
+
+rejected <- sum(W > quantiles[2])
+# Error of the first kind
+false_positive_rate2 <- rejected / length(W)
+
+rejected <- sum(W > empiric_qf[2])
+# Error of the first kind
+false_positive_rate3 <- rejected / length(W)
+
+false_positive_rate1
+false_positive_rate2
+false_positive_rate3
+
+#EXAMPLE 9
+n    <- 1000
+p    <- 5
+q    <- 5
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityMeans(t,n,p,q,type)
+x    <- seq(0,20,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+df<- p*(q-1)/2
+
+quantiles<-qchisq(prob,df)
+
+
+# Number of simulated values
+N<- 50000
+
+#Cyklus of simulating real values 
+W <- vector()  
+for (i in 1:N) {
+  beta <- vector()
+  for (k in 1:p) {
+    beta[k] <- rbeta(1,(n-q-k+1)/2,(q-1)/2)
+  }
+  
+  W[i] <- -(n/2)*log(prod(beta))  
+}
+
+
+empiric_qf <- quantile(W,prob)
+
+result$qf
+quantiles
+empiric_qf
+
+rejected <- sum(W > result$qf[2])
+# Error of the first kind
+false_positive_rate1 <- rejected / length(W)
+
+rejected <- sum(W > quantiles[2])
+# Error of the first kind
+false_positive_rate2 <- rejected / length(W)
+
+rejected <- sum(W > empiric_qf[2])
+# Error of the first kind
+false_positive_rate3 <- rejected / length(W)
+
+false_positive_rate1
+false_positive_rate2
+false_positive_rate3
+
+#EXAMPLE 10
+n    <- 10000
+p    <- 5
+q    <- 5
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityMeans(t,n,p,q,type)
+x    <- seq(0,20,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+df<- p*(q-1)/2
+
+quantiles<-qchisq(prob,df)
+
+
+# Number of simulated values
+N<- 50000
+
+#Cyklus of simulating rel values 
+W <- vector()  
+for (i in 1:N) {
+  beta <- vector()
+  for (k in 1:p) {
+    beta[k] <- rbeta(1,(n-q-k+1)/2,(q-1)/2)
+  }
+  
+  W[i] <- -(n/2)*log(prod(beta))  
+}
+
+
+empiric_qf <- quantile(W,prob)
+
+result$qf
+quantiles
+empiric_qf
+
+rejected <- sum(W > result$qf[2])
+# Error of the first kind
+false_positive_rate1 <- rejected / length(W)
+
+rejected <- sum(W > quantiles[2])
+# Error of the first kind
+false_positive_rate2 <- rejected / length(W)
+
+rejected <- sum(W > empiric_qf[2])
+# Error of the first kind
+false_positive_rate3 <- rejected / length(W)
+
+false_positive_rate1
+false_positive_rate2
+false_positive_rate3
+
+#EXAMPLE 11
+n    <- 100
+p    <- 5
+q    <- 10
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityMeans(t,n,p,q,type)
+x    <- seq(0,20,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+df<- p*(q-1)/2
+
+quantiles<-qchisq(prob,df)
+
+
+# Number of simulated values
+N<- 50000
+
+#Cyklus of simulating real values 
+W <- vector()  
+for (i in 1:N) {
+  beta <- vector()
+  for (k in 1:p) {
+    beta[k] <- rbeta(1,(n-q-k+1)/2,(q-1)/2)
+  }
+  
+  W[i] <- -(n/2)*log(prod(beta))  
+}
+
+
+empiric_qf <- quantile(W,prob)
+
+result$qf
+quantiles
+empiric_qf
+
+rejected <- sum(W > result$qf[2])
+# Error of the first kind
+false_positive_rate1 <- rejected / length(W)
+
+rejected <- sum(W > quantiles[2])
+# Error of the first kind
+false_positive_rate2 <- rejected / length(W)
+
+rejected <- sum(W > empiric_qf[2])
+# Error of the first kind
+false_positive_rate3 <- rejected / length(W)
+
+false_positive_rate1
+false_positive_rate2
+false_positive_rate3
+
+#EXAMPLE 12
+n    <- 10000
+p    <- 5
+q    <- 10
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityMeans(t,n,p,q,type)
+x    <- seq(0,20,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+df<- p*(q-1)/2
+
+quantiles<-qchisq(prob,df)
+
+
+# Number of simulated values
+N<- 50000
+
+#Cyklus of simulating real values 
+W <- vector()  
+for (i in 1:N) {
+  beta <- vector()
+  for (k in 1:p) {
+    beta[k] <- rbeta(1,(n-q-k+1)/2,(q-1)/2)
+  }
+  
+  W[i] <- -(n/2)*log(prod(beta))  
+}
+
+
+empiric_qf <- quantile(W,prob)
+
+result$qf
+quantiles
+empiric_qf
+
+rejected <- sum(W > result$qf[2])
+# Error of the first kind
+false_positive_rate1 <- rejected / length(W)
+
+rejected <- sum(W > quantiles[2])
+# Error of the first kind
+false_positive_rate2 <- rejected / length(W)
+
+rejected <- sum(W > empiric_qf[2])
+# Error of the first kind
+false_positive_rate3 <- rejected / length(W)
+
+false_positive_rate1
+false_positive_rate2
+false_positive_rate3
+
+#EXAMPLE 13
+n    <- 10000
+p    <- 5
+q    <- 10
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityMeans(t,n,p,q,type)
+x    <- seq(0,20,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+df<- p*(q-1)/2
+
+quantiles<-qchisq(prob,df)
+
+
+# Number of simulated values
+N<- 50000
+
+#Cyklus of simulating rel values 
+W <- vector()  
+for (i in 1:N) {
+  beta <- vector()
+  for (k in 1:p) {
+    beta[k] <- rbeta(1,(n-q-k+1)/2,(q-1)/2)
+  }
+  
+  W[i] <- -(n/2)*log(prod(beta))  
+}
+
+
+empiric_qf <- quantile(W,prob)
+
+result$qf
+quantiles
+empiric_qf
+
+rejected <- sum(W > result$qf[2])
+# Error of the first kind
+false_positive_rate1 <- rejected / length(W)
+
+rejected <- sum(W > quantiles[2])
+# Error of the first kind
+false_positive_rate2 <- rejected / length(W)
+
+rejected <- sum(W > empiric_qf[2])
+# Error of the first kind
+false_positive_rate3 <- rejected / length(W)
+
+false_positive_rate1
+false_positive_rate2
+false_positive_rate3
