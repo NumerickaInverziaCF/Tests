@@ -1,6 +1,6 @@
 #In this file we can see a comparison for selected parameters of null distribution equality of means. We compared the probability density (PDF), distribution function (CDF),
-quantiles (QF) and error of the first kind, which we calculated using the method of Numerical inversion CF of the null distribution of the LRT statistic 
-and the asymptotic Chi-squared distribution
+#quantiles (QF) and error of the first kind, which we calculated using the method of Numerical inversion CF of the null distribution of the LRT statistic 
+#and the asymptotic Chi-squared distribution
 
 #EXAMPLE 1:
 
