@@ -1,0 +1,1053 @@
+#In this file we can see a comparison for selected parameters of Bartlett's distribution and Bartlett's test of equality of variances. 
+#We compared the probability density (PDF), distribution function (CDF), quantiles (QF) and error of the first kind, 
+#which we calculated using the method of Numerical inversion CF of the null distribution of the Bartlett test and the asymptotic Chi-squared distribution.
+
+
+#example1
+library(CharFunToolR)
+x     <- seq(-2,10,length.out=501)
+df    <- c(1,1)
+prob  <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+
+cf    <- function(t) cfTest_Bartlett(t,df)
+result <- cf2DistGP(cf,x,prob = c(0.90,0.95,0.99),options = options)
+
+#Numeric inversion pdf
+plot(x,result$pdf,type="l",col="green")
+
+pdf_values <- dchisq(x, length(df)-1)
+
+# Asymptotic pdf
+lines(x, pdf_values, type = "l",col="blue")
+
+# Number of simulated values
+N<- 10000
+
+# Number of groups
+k<-2
+
+#Cyklus of simulating rel values of bartlet distribution
+bartlett_statistics<-vector()
+for (i in 1:N) {
+
+        g1 <- rnorm(df[1]+1)
+        g2<- rnorm(df[2]+1)
+
+        bartlett_statistics[i]<-bartlett.test(list(g1,g2))$statistic
+
+}
+
+hist(bartlett_statistics, breaks = 30, probability = TRUE, col = 'lightblue', main = 'Histogram Bartlettovy Statistiky', xlab = 'Hodnota statistiky', ylab = 'Pravděpodobnost')
+
+# Real pdf
+lines(density(bartlett_statistics), col = 'darkred', lwd = 2)
+
+#example 2
+k     <- 5
+df    <-c(1, 1, 1, 1, 1)
+prob  <- c(0.9, 0.95, 0.99)
+x<-seq(0,30,length=1000)
+options<-list()
+options$isPlot <- FALSE
+
+cf <- function(t) cfTest_Bartlett(t,df)
+result <-cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion pdf
+plot(x,result$pdf,type="l",col="green")
+
+pdf_values <- dchisq(x, length(df)-1)
+
+# Asymptotic pdf
+lines(x, pdf_values, type = "l",col="blue")
+
+# Number of simulated values
+N<- 10000
+
+# Number of groups
+k<-5
+
+bartlett_statistics<-vector()
+for (i in 1:N) {
+  
+  g1 <- rnorm(df[1]+1)
+  g2<- rnorm(df[2]+1)
+  g3<- rnorm(df[3]+1)
+  g4<- rnorm(df[4]+1)
+  g5<- rnorm(df[5]+1)
+  
+  
+  bartlett_statistics[i]<-bartlett.test(list(g1,g2,g3,g4,g5))$statistic
+  
+}
+
+hist(bartlett_statistics, breaks = 30, probability = TRUE, col = 'lightblue', main = 'Histogram Bartlettovy Statistiky', xlab = 'Hodnota statistiky', ylab = 'Pravděpodobnost')
+
+# Real pdf
+lines(density(bartlett_statistics), col = 'darkred', lwd = 2)
+
+#example 3
+k     <- 5
+df    <-c(2, 2, 3, 4, 4)
+prob  <- c(0.9, 0.95, 0.99)
+x<-seq(0,30,length=1000)
+options<-list()
+options$isPlot <- FALSE
+
+cf <- function(t) cfTest_Bartlett(t,df)
+result <-cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion pdf
+plot(x,result$pdf,type="l",col="green")
+
+pdf_values <- dchisq(x, length(df)-1)
+
+# Asymptotic pdf
+lines(x, pdf_values, type = "l",col="blue")
+
+
+# Number of simulated values
+N<- 10000
+
+# Number of groups
+k<-5
+
+bartlett_statistics<-vector()
+for (i in 1:N) {
+
+
+        g1 <-rnorm(df[1]+1)
+        g2<- rnorm(df[2]+1)
+        g3<- rnorm(df[3]+1)
+        g4<- rnorm(df[4]+1)
+        g5<- rnorm(df[5]+1)
+
+
+        bartlett_statistics[i]<-bartlett.test(list(g1,g2,g3,g4,g5))$statistic
+
+}
+
+hist(bartlett_statistics, breaks = 30, probability = TRUE, col = 'lightblue', main = 'Histogram Bartlettovy Statistiky', xlab = 'Hodnota statistiky', ylab = 'Pravděpodobnost')
+
+# Real pdf
+lines(density(bartlett_statistics), col = 'darkred', lwd = 2)
+
+#example 4
+k     <- 5
+df    <-c(7, 8, 8, 9, 9)
+prob  <- c(0.9, 0.95, 0.99)
+x<-seq(0,30,length=1000)
+options<-list()
+options$isPlot <- FALSE
+
+cf <- function(t) cfTest_Bartlett(t,df)
+result <-cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion pdf
+plot(x,result$pdf,type="l",col="green")
+
+pdf_values <- dchisq(x, length(df)-1)
+
+# Asymptotic pdf
+lines(x, pdf_values, type = "l",col="blue")
+
+# Number of simulated values
+N<- 10000
+
+# Number of groups
+k<-5
+
+bartlett_statistics<-vector()
+for (i in 1:N) {
+  
+  g1 <- rnorm(df[1]+1)
+  g2<- rnorm(df[2]+1)
+  g3<- rnorm(df[3]+1)
+  g4<- rnorm(df[4]+1)
+  g5<- rnorm(df[5]+1)
+  
+  
+  bartlett_statistics[i]<-bartlett.test(list(g1,g2,g3,g4,g5))$statistic
+  
+}
+
+hist(bartlett_statistics, breaks = 30, probability = TRUE, col = 'lightblue', main = 'Histogram Bartlettovy Statistiky', xlab = 'Hodnota statistiky', ylab = 'Pravděpodobnost')
+
+# Real pdf
+lines(density(bartlett_statistics), col = 'darkred', lwd = 2)
+
+#example 5
+k     <- 5
+df    <-c(9, 9, 19, 29, 29)
+prob  <- c(0.9, 0.95, 0.99)
+x<-seq(0,30,length=1000)
+options<-list()
+options$isPlot <- FALSE
+
+cf <- function(t) cfTest_Bartlett(t,df)
+result <-cf2DistGP(cf,x,prob,options)
+
+
+#Numeric inversion pdf
+plot(x,result$pdf,type="l",col="green")
+
+pdf_values <- dchisq(x, length(df)-1)
+
+# Asymptotic pdf
+lines(x, pdf_values, type = "l",col="blue")
+
+# Number of simulated values
+N<- 10000
+
+# Number of groups
+k<-5
+
+bartlett_statistics<-vector()
+for (i in 1:N) {
+  
+  g1 <- rnorm(df[1]+1)
+  g2<- rnorm(df[2]+1)
+  g3<- rnorm(df[3]+1)
+  g4<- rnorm(df[4]+1)
+  g5<- rnorm(df[5]+1)
+  
+  
+  bartlett_statistics[i]<-bartlett.test(list(g1,g2,g3,g4,g5))$statistic
+  
+}
+
+hist(bartlett_statistics, breaks = 30, probability = TRUE, col = 'lightblue', main = 'Histogram Bartlettovy Statistiky', xlab = 'Hodnota statistiky', ylab = 'Pravděpodobnost')
+
+# Real pdf
+lines(density(bartlett_statistics), col = 'darkred', lwd = 2)
+
+
+# example 6
+k     <- 8
+df    <-c(3, 3, 3, 4, 4, 7, 8, 9)
+prob  <- c(0.9, 0.95, 0.99)
+x<-seq(0,30,length=1000)
+options<-list()
+options$isPlot <- FALSE
+
+cf <- function(t) cfTest_Bartlett(t,df)
+result <-cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion pdf
+plot(x,result$pdf,type="l",col="green")
+
+pdf_values <- dchisq(x, length(df)-1)
+
+# Asymptotic pdf
+lines(x, pdf_values, type = "l",col="blue")
+
+
+# Number of simulated values
+N<- 10000
+
+# Number of groups
+k<-8
+
+bartlett_statistics<-vector()
+for (i in 1:N) {
+
+
+        g1 <-rnorm(df[1]+1)
+        g2<- rnorm(df[2]+1)
+        g3<- rnorm(df[3]+1)
+        g4<- rnorm(df[4]+1)
+        g5<- rnorm(df[5]+1)
+        g6<- rnorm(df[6]+1)
+        g7<- rnorm(df[7]+1)
+        g8<- rnorm(df[8]+1)
+
+        bartlett_statistics[i]<-bartlett.test(list(g1,g2,g3,g4,g5,g6,g7,g8))$statistic
+
+}
+
+hist(bartlett_statistics, breaks = 30, probability = TRUE, col = 'lightblue', main = 'Histogram Bartlettovy Statistiky', xlab = 'Hodnota statistiky', ylab = 'Pravděpodobnost')
+
+# Real pdf
+lines(density(bartlett_statistics), col = 'darkred', lwd = 2)
+
+
+#example 7
+
+# Number of groups
+k     <- 13
+
+df    <-c(1, 2, 3, 4, 5, 6, 7, 8, 9, 19, 29, 49, 99)
+prob  <- c(0.9, 0.95, 0.99)
+
+x     <- seq(0,40,length.out=1000)
+
+options<-list()
+options$isPlot <- FALSE
+
+cf <- function(t) cfTest_Bartlett(t,df)
+result <-cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion pdf
+plot(x,result$pdf,type="l",col="green")
+
+pdf_values <- dchisq(x, length(df)-1)
+
+# Asymptotic pdf
+lines(x, pdf_values, type = "l",col="blue")
+
+# Number of simulated values
+N<- 10000
+
+bartlett_statistics<-vector()
+for (i in 1:N) {
+
+
+        g1 <-rnorm(df[1]+1)
+        g2<- rnorm(df[2]+1)
+        g3<- rnorm(df[3]+1)
+        g4<- rnorm(df[4]+1)
+        g5<- rnorm(df[5]+1)
+        g6 <-rnorm(df[6]+1)
+        g7<- rnorm(df[7]+1)
+        g8<- rnorm(df[8]+1)
+        g9<- rnorm(df[9]+1)
+        g10<- rnorm(df[10]+1)
+        g11<-rnorm(df[11]+1)
+        g12<-rnorm(df[12]+1)
+        g13<-rnorm(df[13]+1)
+
+
+        bartlett_statistics[i]<-bartlett.test(list(g1,g2,g3,g4,g5,g6,g7,g8,g9,g10,g11,g12,g13))$statistic
+
+}
+
+hist(bartlett_statistics, breaks = 30, probability = TRUE, col = 'lightblue', main = 'Histogram Bartlettovy Statistiky', xlab = 'Hodnota statistiky', ylab = 'Pravděpodobnost')
+
+# Real pdf
+lines(density(bartlett_statistics), col = 'darkred', lwd = 2)
+
+
+##cdf
+
+#example1
+library(CharFunToolR)
+x     <- seq(-2,10,length.out=501)
+df    <- c(1,1)
+options <- list(isPlot=FALSE)
+
+cf    <- function(t) cfTest_Bartlett(t,df)
+result <- cf2DistGP(cf,x,prob = prob,options = options)
+
+#Numeric inversion cdf
+plot(x,result$cdf,type="l",col="green")
+
+
+cdf_values <- pchisq(x, length(df)-1, lower.tail = TRUE)
+
+# Asymptotic cdf
+lines(x, cdf_values, type = "l",col="blue")
+
+# Number of simulated values
+N<- 10000
+
+# Number of groups
+k<-2
+
+bartlett_statistics<-vector()
+for (i in 1:N) {
+
+
+        g1 <- rnorm(df[1]+1)
+        g2<- rnorm(df[2]+1)
+
+        bartlett_statistics[i]<-bartlett.test(list(g1,g2))$statistic
+
+}
+# Real cdf
+lines(ecdf(bartlett_statistics), col = 'darkred', lwd = 2)
+
+#example 2
+k     <- 5
+df    <-c(1, 1, 1, 1, 1)
+prob  <- c(0.9, 0.95, 0.99)
+x<-seq(0,30,length=1000)
+options<-list()
+options$isPlot <- FALSE
+
+cf <- function(t) cfTest_Bartlett(t,df)
+result <-cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion cdf
+plot(x,result$cdf,type="l",col="green")
+
+cdf_values <- pchisq(x, length(df)-1)
+
+# Asymptotic cdf
+lines(x, cdf_values, type = "l",col="blue")
+
+
+# Number of simulated values
+N<- 10000
+
+# Number of groups
+k<-5
+
+bartlett_statistics<-vector()
+for (i in 1:N) {
+  
+  g1 <- rnorm(df[1]+1)
+  g2<- rnorm(df[2]+1)
+  g3<- rnorm(df[3]+1)
+  g4<- rnorm(df[4]+1)
+  g5<- rnorm(df[5]+1)
+  
+  
+  bartlett_statistics[i]<-bartlett.test(list(g1,g2,g3,g4,g5))$statistic
+  
+}
+
+# Real cdf
+lines(ecdf(bartlett_statistics), col = 'darkred', lwd = 2)
+
+#example 3
+k     <- 5
+df    <-c(2, 2, 3, 4, 4)
+prob  <- c(0.9, 0.95, 0.99)
+x<-seq(0,30,length=1000)
+options<-list()
+options$isPlot <- FALSE
+
+cf <- function(t) cfTest_Bartlett(t,df)
+result <-cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion cdf
+plot(x,result$cdf,type="l",col="green")
+
+cdf_values <- pchisq(x, length(df)-1)
+
+# Asymptotic cdf
+lines(x, cdf_values, type = "l",col="blue")
+
+
+# Number of simulated values
+N<- 10000
+
+# Number of groups
+k<-5
+
+bartlett_statistics<-vector()
+for (i in 1:N) {
+  
+  g1 <- rnorm(df[1]+1)
+  g2<- rnorm(df[2]+1)
+  g3<- rnorm(df[3]+1)
+  g4<- rnorm(df[4]+1)
+  g5<- rnorm(df[5]+1)
+  
+  
+  bartlett_statistics[i]<-bartlett.test(list(g1,g2,g3,g4,g5))$statistic
+  
+}
+
+# Real cdf
+lines(ecdf(bartlett_statistics), col = 'darkred', lwd = 2)
+
+#example 4
+k     <- 5
+df    <-c(7, 8, 8, 9, 9)
+prob  <- c(0.9, 0.95, 0.99)
+x<-seq(0,30,length=1000)
+options<-list()
+options$isPlot <- FALSE
+
+cf <- function(t) cfTest_Bartlett(t,df)
+result <-cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion cdf
+plot(x,result$cdf,type="l",col="green")
+
+cdf_values <- pchisq(x, length(df)-1)
+
+# Asymptotic cdf
+lines(x, cdf_values, type = "l",col="blue")
+
+
+# Number of simulated values
+N<- 10000
+
+# Number of groups
+k<-5
+
+bartlett_statistics<-vector()
+for (i in 1:N) {
+  
+  g1 <- rnorm(df[1]+1)
+  g2<- rnorm(df[2]+1)
+  g3<- rnorm(df[3]+1)
+  g4<- rnorm(df[4]+1)
+  g5<- rnorm(df[5]+1)
+  
+  
+  bartlett_statistics[i]<-bartlett.test(list(g1,g2,g3,g4,g5))$statistic
+  
+}
+
+# Real cdf
+lines(ecdf(bartlett_statistics), col = 'darkred', lwd = 2)
+
+#example 5
+k     <- 5
+df    <-c(9, 9, 19, 29, 29)
+prob  <- c(0.9, 0.95, 0.99)
+x<-seq(0,30,length=1000)
+options<-list()
+options$isPlot <- FALSE
+
+cf <- function(t) cfTest_Bartlett(t,df)
+result <-cf2DistGP(cf,x,prob,options)
+
+
+#Numeric inversion cdf
+plot(x,result$cdf,type="l",col="green")
+
+cdf_values <- pchisq(x, length(df)-1)
+
+# Asymptotic cdf
+lines(x, cdf_values, type = "l",col="blue")
+
+
+# Number of simulated values
+N<- 10000
+
+# Number of groups
+k<-5
+
+bartlett_statistics<-vector()
+for (i in 1:N) {
+  
+  g1 <- rnorm(df[1]+1)
+  g2<- rnorm(df[2]+1)
+  g3<- rnorm(df[3]+1)
+  g4<- rnorm(df[4]+1)
+  g5<- rnorm(df[5]+1)
+  
+  
+  bartlett_statistics[i]<-bartlett.test(list(g1,g2,g3,g4,g5))$statistic
+  
+}
+
+# Real cdf
+lines(ecdf(bartlett_statistics), col = 'darkred', lwd = 2)
+
+# example 6
+k     <- 8
+df    <-c(3, 3, 3, 4, 4, 7, 8, 9)
+prob  <- c(0.9, 0.95, 0.99)
+x<-seq(0,30,length=1000)
+options<-list()
+options$isPlot <- FALSE
+
+cf <- function(t) cfTest_Bartlett(t,df)
+result <-cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion cdf
+plot(x,result$cdf,type="l",col="green")
+
+cdf_values <- pchisq(x, length(df)-1)
+
+# Asymptotic cdf
+lines(x, cdf_values, type = "l",col="blue")
+
+
+# Number of simulated values
+N<- 10000
+
+# Number of groups
+k<-8
+
+bartlett_statistics<-vector()
+for (i in 1:N) {
+
+
+        g1 <-rnorm(df[1]+1)
+        g2<- rnorm(df[2]+1)
+        g3<- rnorm(df[3]+1)
+        g4<- rnorm(df[4]+1)
+        g5<- rnorm(df[5]+1)
+        g6<- rnorm(df[6]+1)
+        g7<- rnorm(df[7]+1)
+        g8<- rnorm(df[8]+1)
+
+        bartlett_statistics[i]<-bartlett.test(list(g1,g2,g3,g4,g5,g6,g7,g8))$statistic
+
+}
+
+# Real cdf
+lines(ecdf(bartlett_statistics), col = 'darkred', lwd = 2)
+
+
+
+#example 7
+
+# Number of groups
+k     <- 13
+df    <-c(1, 2, 3, 4, 5, 6, 7, 8, 9, 19, 29, 49, 99)
+prob  <- c(0.9, 0.95, 0.99)
+
+x     <- seq(0,40,length.out=1000)
+
+options<-list()
+options$isPlot <- FALSE
+
+cf <- function(t) cfTest_Bartlett(t,df)
+result <-cf2DistGP(cf,x,prob,options)
+
+# Numeric inversion cdf
+plot(x,result$cdf,type="l",col="green")
+
+cdf_values <- pchisq(x, length(df)-1, lower.tail = TRUE)
+
+# Asymptotic cdf
+lines(x, cdf_values, type = "l",col="blue")
+
+
+# Number of simulated values
+N<- 10000
+
+bartlett_statistics<-vector()
+for (i in 1:N) {
+
+        g1 <-rnorm(df[1]+1)
+        g2<- rnorm(df[2]+1)
+        g3<- rnorm(df[3]+1)
+        g4<- rnorm(df[4]+1)
+        g5<- rnorm(df[5]+1)
+        g6 <-rnorm(df[6]+1)
+        g7<- rnorm(df[7]+1)
+        g8<- rnorm(df[8]+1)
+        g9<- rnorm(df[9]+1)
+        g10<- rnorm(df[10]+1)
+        g11<-rnorm(df[11]+1)
+        g12<-rnorm(df[12]+1)
+        g13<-rnorm(df[13]+1)
+
+
+        bartlett_statistics[i]<-bartlett.test(list(g1,g2,g3,g4,g5,g6,g7,g8,g9,g10,g11,g12,g13))$statistic
+
+}
+
+# Real cdf
+lines(ecdf(bartlett_statistics), col = 'darkred', lwd = 2)
+
+#### quantiles
+
+#example1
+library(CharFunToolR)
+x     <- seq(-2,10,length.out=501)
+df    <- c(1,1)
+options <- list(isPlot=FALSE)
+prob<-c(0.90,0.95,0.99)
+cf    <- function(t) cfTest_Bartlett(t,df)
+result <- cf2DistGP(cf,x,prob = prob,options = options)
+result$qf
+
+quantiles <- qchisq(prob, length(df)-1)
+quantiles
+
+# Number of simulated values
+N<- 10000
+
+# Number of groups
+k<-2
+
+bartlett_statistics<-vector()
+for (i in 1:N) {
+
+        g1 <- rnorm(df[1]+1)
+        g2<- rnorm(df[2]+1)
+
+        bartlett_statistics[i]<-bartlett.test(list(g1,g2))$statistic
+
+}
+realqf<-quantile(bartlett_statistics,c(0.90,0.95,0.99))
+
+result$qf
+quantiles
+realqf
+
+rejected <- sum(bartlett_statistics > result$qf[2])
+# Error of the first kind
+false_positive_rate1 <- rejected / length(bartlett_statistics)
+
+rejected <- sum(bartlett_statistics > quantiles[2])
+# Error of the first kind
+false_positive_rate2 <- rejected / length(bartlett_statistics)
+
+rejected <- sum(bartlett_statistics > realqf[2])
+# rejected
+false_positive_rate3 <- rejected / length(bartlett_statistics)
+
+false_positive_rate1
+false_positive_rate2
+false_positive_rate3
+
+#example 2
+k     <- 5
+df    <-c(1, 1, 1, 1, 1)
+prob  <- c(0.9, 0.95, 0.99)
+x<-seq(0,30,length=1000)
+options<-list()
+options$isPlot <- FALSE
+
+cf <- function(t) cfTest_Bartlett(t,df)
+result <-cf2DistGP(cf,x,prob,options)
+
+result$qf
+
+quantiles <- qchisq(prob, length(df)-1)
+quantiles
+
+# Number of simulated values
+N<- 10000
+
+# Number of groups
+k<-5
+
+bartlett_statistics<-vector()
+for (i in 1:N) {
+  
+  g1 <- rnorm(df[1]+1)
+  g2<- rnorm(df[2]+1)
+  g3<- rnorm(df[3]+1)
+  g4<- rnorm(df[4]+1)
+  g5<- rnorm(df[5]+1)
+  
+  
+  bartlett_statistics[i]<-bartlett.test(list(g1,g2,g3,g4,g5))$statistic
+  
+}
+
+realqf<-quantile(bartlett_statistics,c(0.90,0.95,0.99))
+
+result$qf
+quantiles
+realqf
+
+rejected <- sum(bartlett_statistics > result$qf[2])
+# Error of the first kind
+false_positive_rate1 <- rejected / length(bartlett_statistics)
+
+rejected <- sum(bartlett_statistics > quantiles[2])
+# Error of the first kind
+false_positive_rate2 <- rejected / length(bartlett_statistics)
+
+rejected <- sum(bartlett_statistics > realqf[2])
+# rejected
+false_positive_rate3 <- rejected / length(bartlett_statistics)
+
+false_positive_rate1
+false_positive_rate2
+false_positive_rate3
+
+
+#example 3
+k     <- 5
+df    <-c(2, 2, 3, 4, 4)
+prob  <- c(0.9, 0.95, 0.99)
+x<-seq(0,30,length=1000)
+options<-list()
+options$isPlot <- FALSE
+
+cf <- function(t) cfTest_Bartlett(t,df)
+result <-cf2DistGP(cf,x,prob,options)
+
+result$qf
+
+quantiles <- qchisq(prob, length(df)-1)
+quantiles
+
+# Number of simulated values
+N<- 10000
+
+# Number of groups
+k<-5
+
+bartlett_statistics<-vector()
+for (i in 1:N) {
+  
+  g1 <- rnorm(df[1]+1)
+  g2<- rnorm(df[2]+1)
+  g3<- rnorm(df[3]+1)
+  g4<- rnorm(df[4]+1)
+  g5<- rnorm(df[5]+1)
+  
+  
+  bartlett_statistics[i]<-bartlett.test(list(g1,g2,g3,g4,g5))$statistic
+  
+}
+
+realqf<-quantile(bartlett_statistics,c(0.90,0.95,0.99))
+
+result$qf
+quantiles
+realqf
+
+rejected <- sum(bartlett_statistics > result$qf[2])
+# Error of the first kind
+false_positive_rate1 <- rejected / length(bartlett_statistics)
+
+rejected <- sum(bartlett_statistics > quantiles[2])
+# Error of the first kind
+false_positive_rate2 <- rejected / length(bartlett_statistics)
+
+rejected <- sum(bartlett_statistics > realqf[2])
+# rejected
+false_positive_rate3 <- rejected / length(bartlett_statistics)
+
+false_positive_rate1
+false_positive_rate2
+false_positive_rate3
+
+#example 4
+k     <- 5
+df    <-c(7, 8, 8, 9, 9)
+prob  <- c(0.9, 0.95, 0.99)
+x<-seq(0,30,length=1000)
+options<-list()
+options$isPlot <- FALSE
+
+cf <- function(t) cfTest_Bartlett(t,df)
+result <-cf2DistGP(cf,x,prob,options)
+
+result$qf
+
+quantiles <- qchisq(prob, length(df)-1)
+quantiles
+
+# Number of simulated values
+N<- 10000
+
+# Number of groups
+k<-5
+
+bartlett_statistics<-vector()
+for (i in 1:N) {
+  
+  g1 <- rnorm(df[1]+1)
+  g2<- rnorm(df[2]+1)
+  g3<- rnorm(df[3]+1)
+  g4<- rnorm(df[4]+1)
+  g5<- rnorm(df[5]+1)
+  
+  
+  bartlett_statistics[i]<-bartlett.test(list(g1,g2,g3,g4,g5))$statistic
+  
+}
+
+realqf<-quantile(bartlett_statistics,c(0.90,0.95,0.99))
+
+result$qf
+quantiles
+realqf
+
+rejected <- sum(bartlett_statistics > result$qf[2])
+# Error of the first kind
+false_positive_rate1 <- rejected / length(bartlett_statistics)
+
+rejected <- sum(bartlett_statistics > quantiles[2])
+# Error of the first kind
+false_positive_rate2 <- rejected / length(bartlett_statistics)
+
+rejected <- sum(bartlett_statistics > realqf[2])
+# rejected
+false_positive_rate3 <- rejected / length(bartlett_statistics)
+
+false_positive_rate1
+false_positive_rate2
+false_positive_rate3
+
+
+#example 5
+k     <- 5
+df    <-c(9, 9, 19, 29, 29)
+prob  <- c(0.9, 0.95, 0.99)
+x<-seq(0,30,length=1000)
+options<-list()
+options$isPlot <- FALSE
+
+cf <- function(t) cfTest_Bartlett(t,df)
+result <-cf2DistGP(cf,x,prob,options)
+
+
+result$qf
+
+quantiles <- qchisq(prob, length(df)-1)
+quantiles
+
+# Number of simulated values
+N<- 10000
+
+# Number of groups
+k<-5
+
+bartlett_statistics<-vector()
+for (i in 1:N) {
+  
+  g1 <- rnorm(df[1]+1)
+  g2<- rnorm(df[2]+1)
+  g3<- rnorm(df[3]+1)
+  g4<- rnorm(df[4]+1)
+  g5<- rnorm(df[5]+1)
+  
+  
+  bartlett_statistics[i]<-bartlett.test(list(g1,g2,g3,g4,g5))$statistic
+  
+}
+
+realqf<-quantile(bartlett_statistics,c(0.90,0.95,0.99))
+
+result$qf
+quantiles
+realqf
+
+rejected <- sum(bartlett_statistics > result$qf[2])
+# Error of the first kind
+false_positive_rate1 <- rejected / length(bartlett_statistics)
+
+rejected <- sum(bartlett_statistics > quantiles[2])
+# Error of the first kind
+false_positive_rate2 <- rejected / length(bartlett_statistics)
+
+rejected <- sum(bartlett_statistics > realqf[2])
+# rejected
+false_positive_rate3 <- rejected / length(bartlett_statistics)
+
+false_positive_rate1
+false_positive_rate2
+false_positive_rate3
+
+
+# example 6
+k     <- 8
+df    <-c(3, 3, 3, 4, 4, 7, 8, 9)
+prob  <- c(0.9, 0.95, 0.99)
+x<-seq(0,30,length=1000)
+options<-list()
+options$isPlot <- FALSE
+
+cf <- function(t) cfTest_Bartlett(t,df)
+result <-cf2DistGP(cf,x,prob,options)
+
+quantiles<-qchisq(prob,length(df)-1)
+
+
+# Number of simulated values
+N<- 10000
+
+# Number of groups
+k<-8
+
+bartlett_statistics<-vector()
+for (i in 1:N) {
+
+
+        g1 <-rnorm(df[1]+1)
+        g2<- rnorm(df[2]+1)
+        g3<- rnorm(df[3]+1)
+        g4<- rnorm(df[4]+1)
+        g5<- rnorm(df[5]+1)
+        g6<- rnorm(df[6]+1)
+        g7<- rnorm(df[7]+1)
+        g8<- rnorm(df[8]+1)
+
+        bartlett_statistics[i]<-bartlett.test(list(g1,g2,g3,g4,g5,g6,g7,g8))$statistic
+
+}
+
+realqf<-quantile(bartlett_statistics,prob)
+
+result$qf
+quantiles
+realqf
+
+rejected <- sum(bartlett_statistics > result$qf[2])
+# Error of the first kind
+false_positive_rate1 <- rejected / length(bartlett_statistics)
+
+rejected <- sum(bartlett_statistics > quantiles[2])
+# Error of the first kind
+false_positive_rate2 <- rejected / length(bartlett_statistics)
+
+rejected <- sum(bartlett_statistics > realqf[2])
+# rejected
+false_positive_rate3 <- rejected / length(bartlett_statistics)
+
+false_positive_rate1
+false_positive_rate2
+false_positive_rate3
+
+
+
+#example 7
+k     <- 13
+df    <-c(1, 2, 3, 4, 5, 6, 7, 8, 9, 19, 29, 49, 99)
+prob  <- c(0.9, 0.95, 0.99)
+
+x     <- seq(0,40,length.out=1000)
+
+options<-list()
+options$isPlot <- FALSE
+
+cf <- function(t) cfTest_Bartlett(t,df)
+result <-cf2DistGP(cf,x,prob,options)
+
+result$qf
+
+quantiles <- qchisq(prob, length(df)-1)
+quantiles
+
+N<- 10000
+
+bartlett_statistics<-vector()
+for (i in 1:N) {
+
+        g1 <-rnorm(df[1]+1)
+        g2<- rnorm(df[2]+1)
+        g3<- rnorm(df[3]+1)
+        g4<- rnorm(df[4]+1)
+        g5<- rnorm(df[5]+1)
+        g6 <-rnorm(df[6]+1)
+        g7<- rnorm(df[7]+1)
+        g8<- rnorm(df[8]+1)
+        g9<- rnorm(df[9]+1)
+        g10<- rnorm(df[10]+1)
+        g11<-rnorm(df[11]+1)
+        g12<-rnorm(df[12]+1)
+        g13<-rnorm(df[13]+1)
+
+
+        bartlett_statistics[i]<-bartlett.test(list(g1,g2,g3,g4,g5,g6,g7,g8,g9,g10,g11,g12,g13))$statistic
+
+}
+realqf<-quantile(bartlett_statistics,c(0.90,0.95,0.99))
+
+result$qf
+quantiles
+realqf
+
+rejected <- sum(bartlett_statistics > result$qf[2])
+# Error of the first kind
+false_positive_rate1 <- rejected / length(bartlett_statistics)
+
+rejected <- sum(bartlett_statistics > quantiles[2])
+# Error of the first kind
+false_positive_rate2 <- rejected / length(bartlett_statistics)
+
+rejected <- sum(bartlett_statistics > realqf[2])
+# Error of the first kind
+false_positive_rate3 <- rejected / length(bartlett_statistics)
+
+false_positive_rate1
+false_positive_rate2
+false_positive_rate3
