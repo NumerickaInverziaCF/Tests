@@ -1,0 +1,2084 @@
+#In this file we can see a comparison for selected parameters of null distribution test statistic of equality covariances. We compared the probability density (PDF), 
+#distribution function (CDF), quantiles (QF) and error of the first kind, which we calculated using the method of Numerical inversion CF of the null distribution
+#of the LRT statistic and the asymptotic Chi-squared distribution.
+
+#EXAMPLE 1:
+
+library(CharFunToolR)
+n    <- 10
+p    <- 5
+q    <- 2
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityCovariances(t,n,p,q,type)
+x    <- seq(0,40,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion pdf
+plot(x,result$pdf,type="l",col="green",ylim = c(0,0.15),ylab = "PDF")
+
+df<- (1/4)*(q-1)*p*(p+1)
+pdfValues<-dchisq(x,df)
+# Asymptotic pdf
+lines(x, pdfValues, type = "l",col="blue")
+
+# Number of simulated values
+N<- 50000
+
+W <- vector()  
+
+  for (i in 1:N) {
+    g1<-matrix(rnorm(p*n),n,p)
+    
+    g2<-matrix(rnorm(p*n),n,p)
+    
+        cov1<-cov(g1)
+        cov2<-cov(g2)    
+        s<-cov1+cov2
+  lrt<- ( q^(p*q) * prod(c(det(cov1),det(cov2))) / (det(s))^q )^(n/2)
+  W[i]<- -log(lrt)
+  }
+  
+
+#Histogram
+ hist(W,breaks = 30, probability = TRUE, col = 'lightblue', main = 'Histogram Bartlettovy Statistiky', xlab = 'Hodnota statistiky', ylab = 'Pravděpodobnost')
+
+ lines(density(W), col = 'darkred', lwd = 2)
+
+#EXAMPLE 2
+n    <- 20
+p    <- 5
+q    <- 2
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityCovariances(t,n,p,q,type)
+x    <- seq(0,30,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion pdf
+plot(x,result$pdf,type="l",col="green")
+
+df<- (1/4)*(q-1)*p*(p+1)
+pdfValues<-dchisq(x,df)
+# Asymptotic pdf
+lines(x, pdfValues, type = "l",col="blue")
+
+# Number of simulated values
+N<- 50000
+
+W <- vector()  
+for (i in 1:N) {
+  g1<-matrix(rnorm(p*n),n,p)
+  
+  g2<-matrix(rnorm(p*n),n,p)
+  
+  cov1<-cov(g1)
+  cov2<-cov(g2)    
+  s<-cov1+cov2
+  lrt<- ( q^(p*q) * prod(c(det(cov1),det(cov2))) / (det(s))^q )^(n/2)
+  W[i]<- -log(lrt)
+}
+
+
+# Histogram
+hist(W,breaks = 30, probability = TRUE, col = 'lightblue', main = 'Histogram štatistiky', xlab = 'Hodnota štatistiky', ylab = 'Pravdepodobnosť')
+
+lines(density(W), col = 'darkred', lwd = 2)
+
+#EXAMPLE 3
+n    <- 50
+p    <- 5
+q    <- 2
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityCovariances(t,n,p,q,type)
+x    <- seq(0,25,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion pdf
+plot(x,result$pdf,type="l",col="green")
+
+df<- (1/4)*(q-1)*p*(p+1)
+pdfValues<-dchisq(x,df)
+
+# Asymptotic pdf
+lines(x, pdfValues, type = "l",col="blue")
+
+# Number of simulated values
+N<- 50000
+
+W <- vector()  
+for (i in 1:N) {
+  g1<-matrix(rnorm(p*n),n,p)
+  
+  g2<-matrix(rnorm(p*n),n,p)
+  
+  cov1<-cov(g1)
+  cov2<-cov(g2)    
+  s<-cov1+cov2
+  lrt<- ( q^(p*q) * prod(c(det(cov1),det(cov2))) / (det(s))^q )^(n/2)
+  W[i]<- -log(lrt)
+}
+
+
+hist(W,breaks = 30, probability = TRUE, col = 'lightblue', main = 'Histogram štatistiky', xlab = 'Hodnota štatistiky', ylab = 'Pravdepodobnosť')
+lines(density(W), col = 'darkred', lwd = 2)
+
+#EXAMPLE 4
+n    <- 100
+p    <- 5
+q    <- 2
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityCovariances(t,n,p,q,type)
+x    <- seq(0,25,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion pdf
+plot(x,result$pdf,type="l",col="green")
+
+df<- (1/4)*(q-1)*p*(p+1)
+pdfValues<-dchisq(x,df)
+
+# Asymptotic pdf
+lines(x, pdfValues, type = "l",col="blue")
+
+# Number of simulated values
+N<- 50000
+
+W <- vector()  
+for (i in 1:N) {
+  g1<-matrix(rnorm(p*n),n,p)
+  
+  g2<-matrix(rnorm(p*n),n,p)
+  
+  cov1<-cov(g1)
+  cov2<-cov(g2)    
+  s<-cov1+cov2
+  lrt<- ( q^(p*q) * prod(c(det(cov1),det(cov2))) / (det(s))^q )^(n/2)
+  W[i]<- -log(lrt)
+}
+
+
+hist(W,breaks = 30, probability = TRUE, col = 'lightblue', main = 'Histogram štatistiky', xlab = 'Hodnota štatistiky', ylab = 'Pravdepodobnosť')
+
+lines(density(W), col = 'darkred', lwd = 2)
+
+#EXAMPLE 5
+n    <- 500
+p    <- 5
+q    <- 2
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityCovariances(t,n,p,q,type)
+x    <- seq(0,25,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion pdf
+plot(x,result$pdf,type="l",col="green",ylab = "PDF")
+
+df<- (1/4)*(q-1)*p*(p+1)
+pdfValues<-dchisq(x,df)
+# Asymptotic pdf
+lines(x, pdfValues, type = "l",col="blue")
+
+# Number of simulated values
+N<- 50000
+
+W <- vector()  
+for (i in 1:N) {
+  g1<-matrix(rnorm(p*n),n,p)
+  
+  g2<-matrix(rnorm(p*n),n,p)
+  
+  cov1<-cov(g1)
+  cov2<-cov(g2)    
+  s<-cov1+cov2
+  lrt<- ( q^(p*q) * prod(c(det(cov1),det(cov2))) / (det(s))^q )^(n/2)
+  W[i]<- -log(lrt)
+}
+
+
+hist(W,breaks = 30, probability = TRUE, col = 'lightblue', main = 'Histogram  štatistiky', xlab = 'Hodnota štatistiky', ylab = 'Pravdepodobnosť')
+
+lines(density(W), col = 'darkred', lwd = 2)
+
+#EXAMPLE 6
+n    <- 1000
+p    <- 5
+q    <- 2
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityCovariances(t,n,p,q,type)
+x    <- seq(0,25,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion pdf
+plot(x,result$pdf,type="l",col="green")
+
+df<- (1/4)*(q-1)*p*(p+1)
+pdfValues<-dchisq(x,df)
+# Asymptotic pdf
+lines(x, pdfValues, type = "l",col="blue")
+
+# Number of simulated values
+N<- 50000
+
+W <- vector()  
+for (i in 1:N) {
+  g1<-matrix(rnorm(p*n),n,p)
+  
+  g2<-matrix(rnorm(p*n),n,p)
+  
+  cov1<-cov(g1)
+  cov2<-cov(g2)    
+  s<-cov1+cov2
+  lrt<- ( q^(p*q) * prod(c(det(cov1),det(cov2))) / (det(s))^q )^(n/2)
+  W[i]<- -log(lrt)
+}
+
+hist(W,breaks = 30, probability = TRUE, col = 'lightblue', main = 'Histogram štatistiky', xlab = 'Hodnota štatistiky', ylab = 'Pravdepodobnosť')
+
+lines(density(W), col = 'darkred', lwd = 2)
+
+#EXAMPLE 7
+n    <- 10000
+p    <- 5
+q    <- 2
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityCovariances(t,n,p,q,type)
+x    <- seq(0,25,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion pdf
+plot(x,result$pdf,type="l",col="green",ylab = "PDF")
+df<- (1/4)*(q-1)*p*(p+1)
+pdfValues<-dchisq(x,df)
+# Asymptotic pdf
+lines(x, pdfValues, type = "l",col="blue")
+
+# Number of simulated values
+N<- 50000
+
+W <- vector()  
+for (i in 1:N) {
+  g1<-matrix(rnorm(p*n),n,p)
+  
+  g2<-matrix(rnorm(p*n),n,p)
+  
+  cov1<-cov(g1)
+  cov2<-cov(g2)    
+  s<-cov1+cov2
+  lrt<- ( q^(p*q) * prod(c(det(cov1),det(cov2))) / (det(s))^q )^(n/2)
+  W[i]<- -log(lrt)
+}
+
+
+hist(W,breaks = 30, probability = TRUE, col = 'lightblue', main = 'Histogram LRT štatistiky', xlab = 'Hodnota štatistiky', ylab = 'Pravdepodobnosť')
+
+lines(density(W), col = 'darkred', lwd = 2)
+
+#EXAMPLE 8
+n    <- 100
+p    <- 5
+q    <- 5
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityCovariances(t,n,p,q,type)
+x    <- seq(0,50,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion pdf
+plot(x,result$pdf,type="l",col="green",ylab = "PDF")
+
+df<- (1/4)*(q-1)*p*(p+1)
+pdfValues<-dchisq(x,df)
+# Asymptotic pdf
+lines(x, pdfValues, type = "l",col="blue")
+
+# Number of simulated values
+N<- 50000
+
+W <- vector()  
+for (i in 1:N) {
+  g1<-matrix(rnorm(p*n),n,p)
+  
+  g2<-matrix(rnorm(p*n),n,p)
+  
+  g3<-matrix(rnorm(p*n),n,p)
+  
+  g4<-matrix(rnorm(p*n),n,p)
+  
+  g5<-matrix(rnorm(p*n),n,p)
+  
+  cov1<-cov(g1)
+  cov2<-cov(g2)    
+  cov3<-cov(g3)
+  cov4<-cov(g4)   
+  cov5<-cov(g5)   
+  
+  s<-cov1+cov2+cov3+cov4+cov5
+  lrt<- ( q^(p*q) * prod(c(det(cov1),det(cov2),det(cov3),det(cov4),det(cov5))) / (det(s))^q )^(n/2)
+  W[i]<- -log(lrt)
+}
+
+
+hist(W,breaks = 30, probability = TRUE, col = 'lightblue', main = 'Histogram štatistiky', xlab = 'Hodnota štatistiky', ylab = 'Pravdepodobnosť')
+
+lines(density(W), col = 'darkred', lwd = 2)
+
+#EXAMPLE 9
+n    <- 1000
+p    <- 5
+q    <- 5
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityCovariances(t,n,p,q,type)
+x    <- seq(0,50,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion pdf
+plot(x,result$pdf,type="l",col="green",ylab = "PDF")
+
+df<- (1/4)*(q-1)*p*(p+1)
+pdfValues<-dchisq(x,df)
+# Asymptotic pdf
+lines(x, pdfValues, type = "l",col="blue")
+# Number of simulated values
+N<- 50000
+
+W <- vector()  
+for (i in 1:N) {
+  g1<-matrix(rnorm(p*n),n,p)
+  
+  g2<-matrix(rnorm(p*n),n,p)
+  
+  g3<-matrix(rnorm(p*n),n,p)
+  
+  g4<-matrix(rnorm(p*n),n,p)
+  
+  g5<-matrix(rnorm(p*n),n,p)
+  
+  cov1<-cov(g1)
+  cov2<-cov(g2)    
+  cov3<-cov(g3)
+  cov4<-cov(g4)   
+  cov5<-cov(g5)   
+  
+  s<-cov1+cov2+cov3+cov4+cov5
+  lrt<- ( q^(p*q) * prod(c(det(cov1),det(cov2),det(cov3),det(cov4),det(cov5))) / (det(s))^q )^(n/2)
+  W[i]<- -log(lrt)
+}
+
+
+hist(W,breaks = 30, probability = TRUE, col = 'lightblue', main = 'Histogram LRT štatistiky', xlab = 'Hodnota štatistiky', ylab = 'Pravdepodobnosť')
+
+lines(density(W), col = 'darkred', lwd = 2)
+
+#EXAMPLE 10
+n    <- 10000
+p    <- 5
+q    <- 5
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityCovariances(t,n,p,q,type)
+x    <- seq(0,50,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion pdf
+plot(x,result$pdf,type="l",col="green",ylab = "PDF")
+
+df<- (1/4)*(q-1)*p*(p+1)
+pdfValues<-(1/ro)*dchisq(x,df)
+# Asymptotic pdf
+lines(x, pdfValues, type = "l",col="blue")
+
+# Number of simulated values
+N<- 50000
+
+#Cyklus of simulating rel values 
+
+W <- vector()  
+
+for (i in 1:N) {
+  g1<-matrix(rnorm(p*n),n,p)
+  
+  g2<-matrix(rnorm(p*n),n,p)
+  
+  g3<-matrix(rnorm(p*n),n,p)
+  
+  g4<-matrix(rnorm(p*n),n,p)
+  
+  g5<-matrix(rnorm(p*n),n,p)
+  
+  cov1<-cov(g1)
+  cov2<-cov(g2)    
+  cov3<-cov(g3)
+  cov4<-cov(g4)   
+  cov5<-cov(g5)   
+  
+  s<-cov1+cov2+cov3+cov4+cov5
+  lrt<- ( q^(p*q) * prod(c(det(cov1),det(cov2),det(cov3),det(cov4),det(cov5))) / (det(s))^q )^(n/2)
+  
+  W[i]<- -log(lrt)
+}
+
+hist(W,breaks = 30, probability = TRUE, col = 'lightblue', main = 'Histogram LRT štatistiky', xlab = 'Hodnota štatistiky', ylab = 'Pravdepodobnosť')
+
+lines(density(W), col = 'darkred', lwd = 2)
+
+
+#EXAMPLE 11
+n    <- 100
+p    <- 5
+q    <- 10
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityCovariances(t,n,p,q,type)
+x    <- seq(25,100,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion pdf
+plot(x,result$pdf,type="l",col="green",ylab = "PDF")
+
+df<- (1/4)*(q-1)*p*(p+1)
+pdfValues<-dchisq(x,df)
+# Asymptotic pdf
+lines(x, pdfValues, type = "l",col="blue")
+
+# Number of simulated values
+N<- 50000
+
+W <- vector()  
+for (i in 1:N) {
+  g1<-matrix(rnorm(p*n),n,p)
+  
+  g2<-matrix(rnorm(p*n),n,p)
+  
+  g3<-matrix(rnorm(p*n),n,p)
+  
+  g4<-matrix(rnorm(p*n),n,p)
+  
+  g5<-matrix(rnorm(p*n),n,p)
+  
+  g6<-matrix(rnorm(p*n),n,p)
+  
+  g7<-matrix(rnorm(p*n),n,p)
+  
+  g8<-matrix(rnorm(p*n),n,p)
+  
+  g9<-matrix(rnorm(p*n),n,p)
+  
+  g10<-matrix(rnorm(p*n),n,p)
+  
+  cov1<-cov(g1)
+  cov2<-cov(g2)    
+  cov3<-cov(g3)
+  cov4<-cov(g4)   
+  cov5<-cov(g5)   
+  cov6<-cov(g6)
+  cov7<-cov(g7)    
+  cov8<-cov(g8)
+  cov9<-cov(g9)   
+  cov10<-cov(g10)   
+  
+  s<-cov1+cov2+cov3+cov4+cov5+cov6+cov7+cov8+cov9+cov10
+  lrt<- ( q^(p*q) * prod(c(det(cov1),det(cov2),det(cov3),det(cov4),det(cov5),det(cov6),det(cov7),det(cov8),det(cov9),det(cov10))) / (det(s))^q )^(n/2)
+  
+  W[i]<- -log(lrt)
+}
+
+hist(W,breaks = 30, probability = TRUE, col = 'lightblue', main = 'Histogram štatistiky', xlab = 'Hodnota štatistiky', ylab = 'Pravdepodobnosť')
+
+lines(density(W), col = 'darkred', lwd = 2)
+
+#EXAMPLE 12
+n    <- 1000
+p    <- 5
+q    <- 10
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityCovariances(t,n,p,q,type)
+x    <- seq(30,100,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion pdf
+plot(x,result$pdf,type="l",col="green")
+
+df<- (1/4)*(q-1)*p*(p+1)
+pdfValues<-(1/ro)*dchisq(x,df)
+# Asymptotic pdf
+lines(x, pdfValues, type = "l",col="blue")
+
+# Number of simulated values
+N<- 50000
+
+#Cyklus of simulating rel values 
+
+W <- vector()  
+
+for (i in 1:N) {
+  g1<-matrix(rnorm(p*n),n,p)
+  
+  g2<-matrix(rnorm(p*n),n,p)
+  
+  g3<-matrix(rnorm(p*n),n,p)
+  
+  g4<-matrix(rnorm(p*n),n,p)
+  
+  g5<-matrix(rnorm(p*n),n,p)
+  
+  g6<-matrix(rnorm(p*n),n,p)
+  
+  g7<-matrix(rnorm(p*n),n,p)
+  
+  g8<-matrix(rnorm(p*n),n,p)
+  
+  g9<-matrix(rnorm(p*n),n,p)
+  
+  g10<-matrix(rnorm(p*n),n,p)
+  
+  cov1<-cov(g1)
+  cov2<-cov(g2)    
+  cov3<-cov(g3)
+  cov4<-cov(g4)   
+  cov5<-cov(g5)   
+  cov6<-cov(g6)
+  cov7<-cov(g7)    
+  cov8<-cov(g8)
+  cov9<-cov(g9)   
+  cov10<-cov(g10)   
+  
+  s<-cov1+cov2+cov3+cov4+cov5+cov6+cov7+cov8+cov9+cov10
+  lrt<- ( q^(p*q) * prod(c(det(cov1),det(cov2),det(cov3),det(cov4),det(cov5),det(cov6),det(cov7),det(cov8),det(cov9),det(cov10))) / (det(s))^q )^(n/2)
+  W[i]<- -log(lrt)
+}
+
+
+hist(W,breaks = 30, probability = TRUE, col = 'lightblue', main = 'Histogram štatistiky', xlab = 'Hodnota štatistiky', ylab = 'Pravdepodobnosť')
+
+lines(density(W), col = 'darkred', lwd = 2)
+
+#EXAMPLE 13
+n    <- 10000
+p    <- 5
+q    <- 10
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityCovariances(t,n,p,q,type)
+x    <- seq(35,100,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion pdf
+plot(x,result$pdf,type="l",col="green")
+
+df<- (1/4)*(q-1)*p*(p+1)
+pdfValues<-dchisq(x,df)
+# Asymptotic pdf
+lines(x, pdfValues, type = "l",col="blue")
+
+# Number of simulated values
+N<- 50000
+
+#Cyklus of simulating rel values 
+
+W <- vector()  
+
+for (i in 1:N) {
+  g1<-matrix(rnorm(p*n),n,p)
+  
+  g2<-matrix(rnorm(p*n),n,p)
+  
+  g3<-matrix(rnorm(p*n),n,p)
+  
+  g4<-matrix(rnorm(p*n),n,p)
+  
+  g5<-matrix(rnorm(p*n),n,p)
+  
+  g6<-matrix(rnorm(p*n),n,p)
+  
+  g7<-matrix(rnorm(p*n),n,p)
+  
+  g8<-matrix(rnorm(p*n),n,p)
+  
+  g9<-matrix(rnorm(p*n),n,p)
+  
+  g10<-matrix(rnorm(p*n),n,p)
+  
+  cov1<-cov(g1)
+  cov2<-cov(g2)    
+  cov3<-cov(g3)
+  cov4<-cov(g4)   
+  cov5<-cov(g5)   
+  cov6<-cov(g6)
+  cov7<-cov(g7)    
+  cov8<-cov(g8)
+  cov9<-cov(g9)   
+  cov10<-cov(g10)   
+  
+  s<-cov1+cov2+cov3+cov4+cov5+cov6+cov7+cov8+cov9+cov10
+  lrt<- ( q^(p*q) * prod(c(det(cov1),det(cov2),det(cov3),det(cov4),det(cov5),det(cov6),det(cov7),det(cov8),det(cov9),det(cov10))) / (det(s))^q )^(n/2)
+  W[i]<- -log(lrt)
+}
+
+
+hist(W,breaks = 30, probability = TRUE, col = 'lightblue', main = 'Histogram štatistiky', xlab = 'Hodnota štatistiky', ylab = 'Pravdepodobnosť')
+
+lines(density(W), col = 'darkred', lwd = 2)
+
+
+#cdf
+#EXAMPLE 1:
+n    <- 10
+p    <- 5
+q    <- 2
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityCovariances(t,n,p,q,type)
+x    <- seq(0,40,length.out=201)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion pdf
+plot(x,result$cdf,type="l",col="green")
+
+df<- (1/4)*(q-1)*p*(p+1)
+cdfValues<-pchisq(x,df)
+# Asymptotic cdf
+lines(x, cdfValues, type = "l",col="blue")
+
+# Number of simulated values
+N<- 50000
+
+W <- vector()  
+for (i in 1:N) {
+  g1<-matrix(rnorm(p*n),n,p)
+  
+  g2<-matrix(rnorm(p*n),n,p)
+  
+  cov1<-cov(g1)
+  cov2<-cov(g2)    
+  s<-cov1+cov2
+  lrt<- ( q^(p*q) * prod(c(det(cov1),det(cov2))) / (det(s))^q )^(n/2)
+  W[i]<- -log(lrt)
+}
+
+lines(ecdf(W), col = 'darkred', lwd = 2)
+
+#EXAMPLE 2
+n    <- 20
+p    <- 5
+q    <- 2
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityCovariances(t,n,p,q,type)
+x    <- seq(0,30,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion cdf
+plot(x,result$cdf,type="l",col="green")
+
+df<- (1/4)*(q-1)*p*(p+1)
+cdfValues<-pchisq(x,df)
+# Asymptotic pdf
+lines(x, cdfValues, type = "l",col="blue")
+
+# Number of simulated values
+N<- 50000
+
+W <- vector()  
+for (i in 1:N) {
+  g1<-matrix(rnorm(p*n),n,p)
+  
+  g2<-matrix(rnorm(p*n),n,p)
+  
+  cov1<-cov(g1)
+  cov2<-cov(g2)    
+  s<-cov1+cov2
+  lrt<- ( q^(p*q) * prod(c(det(cov1),det(cov2))) / (det(s))^q )^(n/2)
+  W[i]<- -log(lrt)
+}
+
+
+lines(ecdf(W), col = 'darkred', lwd = 2)
+
+#EXAMPLE 3
+n    <- 50
+p    <- 5
+q    <- 2
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityCovariances(t,n,p,q,type)
+x    <- seq(0,25,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion cdf
+plot(x,result$cdf,type="l",col="green")
+
+df<- (1/4)*(q-1)*p*(p+1)
+cdfValues<-pchisq(x,df)
+
+# Asymptotic cdf
+lines(x, cdfValues, type = "l",col="blue")
+
+# Number of simulated values
+N<- 50000
+
+W <- vector()  
+for (i in 1:N) {
+  g1<-matrix(rnorm(p*n),n,p)
+  
+  g2<-matrix(rnorm(p*n),n,p)
+  
+  cov1<-cov(g1)
+  cov2<-cov(g2)    
+  s<-cov1+cov2
+  lrt<- ( q^(p*q) * prod(c(det(cov1),det(cov2))) / (det(s))^q )^(n/2)
+  W[i]<- -log(lrt)
+}
+
+
+lines(ecdf(W), col = 'darkred', lwd = 2)
+
+#EXAMPLE 4
+n    <- 100
+p    <- 5
+q    <- 2
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityCovariances(t,n,p,q,type)
+x    <- seq(0,25,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion cdf
+plot(x,result$cdf,type="l",col="green")
+
+df<- (1/4)*(q-1)*p*(p+1)
+cdfValues<-pchisq(x,df)
+
+# Asymptotic cdf
+lines(x, cdfValues, type = "l",col="blue")
+
+# Number of simulated values
+N<- 50000
+
+W <- vector()  
+for (i in 1:N) {
+  g1<-matrix(rnorm(p*n),n,p)
+  
+  g2<-matrix(rnorm(p*n),n,p)
+  
+  cov1<-cov(g1)
+  cov2<-cov(g2)    
+  s<-cov1+cov2
+  lrt<- ( q^(p*q) * prod(c(det(cov1),det(cov2))) / (det(s))^q )^(n/2)
+  W[i]<- -log(lrt)
+}
+
+lines(ecdf(W), col = 'darkred', lwd = 2)
+
+#EXAMPLE 5
+n    <- 500
+p    <- 5
+q    <- 2
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityCovariances(t,n,p,q,type)
+x    <- seq(0,25,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion cdf
+plot(x,result$cdf,type="l",col="green")
+
+df<- (1/4)*(q-1)*p*(p+1)
+cdfValues<-pchisq(x,df)
+# Asymptotic pdf
+lines(x, cdfValues, type = "l",col="blue")
+
+# Number of simulated values
+N<- 50000
+
+W <- vector()  
+for (i in 1:N) {
+  g1<-matrix(rnorm(p*n),n,p)
+  
+  g2<-matrix(rnorm(p*n),n,p)
+  
+  cov1<-cov(g1)
+  cov2<-cov(g2)    
+  s<-cov1+cov2
+  lrt<- ( q^(p*q) * prod(c(det(cov1),det(cov2))) / (det(s))^q )^(n/2)
+  W[i]<- -log(lrt)
+}
+
+lines(ecdf(W), col = 'darkred', lwd = 2)
+
+#EXAMPLE 6
+n    <- 1000
+p    <- 5
+q    <- 2
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityCovariances(t,n,p,q,type)
+x    <- seq(0,25,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion cdf
+plot(x,result$cdf,type="l",col="green")
+
+df<- (1/4)*(q-1)*p*(p+1)
+cdfValues<-pchisq(x,df)
+# Asymptotic cdf
+lines(x, cdfValues, type = "l",col="blue")
+
+# Number of simulated values
+N<- 50000
+
+W <- vector()  
+for (i in 1:N) {
+  g1<-matrix(rnorm(p*n),n,p)
+  
+  g2<-matrix(rnorm(p*n),n,p)
+  
+  cov1<-cov(g1)
+  cov2<-cov(g2)    
+  s<-cov1+cov2
+  lrt<- ( q^(p*q) * prod(c(det(cov1),det(cov2))) / (det(s))^q )^(n/2)
+  W[i]<- -log(lrt)
+}
+
+lines(ecdf(W), col = 'darkred', lwd = 2)
+
+#EXAMPLE 7
+n    <- 10000
+p    <- 5
+q    <- 2
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityCovariances(t,n,p,q,type)
+x    <- seq(0,25,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion cdf
+plot(x,result$cdf,type="l",col="green")
+
+df<- (1/4)*(q-1)*p*(p+1)
+cdfValues<-pchisq(x,df)
+# Asymptotic cdf
+lines(x, cdfValues, type = "l",col="blue")
+
+# Number of simulated values
+N<- 50000
+
+W <- vector()  
+
+for (i in 1:N) {
+  g1<-matrix(rnorm(p*n),n,p)
+  
+  g2<-matrix(rnorm(p*n),n,p)
+  
+  cov1<-cov(g1)
+  cov2<-cov(g2)    
+  s<-cov1+cov2
+  lrt<- ( q^(p*q) * prod(c(det(cov1),det(cov2))) / (det(s))^q )^(n/2)
+  W[i]<- -log(lrt)
+}
+
+
+lines(ecdf(W), col = 'darkred', lwd = 2)
+
+#EXAMPLE 8
+n    <- 100
+p    <- 5
+q    <- 5
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityCovariances(t,n,p,q,type)
+x    <- seq(0,50,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion cdf
+plot(x,result$cdf,type="l",col="green")
+
+df<- (1/4)*(q-1)*p*(p+1)
+cdfValues<-pchisq(x,df)
+
+# Asymptotic cdf
+lines(x, cdfValues, type = "l",col="blue")
+
+# Number of simulated values
+N<- 50000
+
+W <- vector()  
+
+for (i in 1:N) {
+  g1<-matrix(rnorm(p*n),n,p)
+  
+  g2<-matrix(rnorm(p*n),n,p)
+  
+  g3<-matrix(rnorm(p*n),n,p)
+  
+  g4<-matrix(rnorm(p*n),n,p)
+  
+  g5<-matrix(rnorm(p*n),n,p)
+  
+  cov1<-cov(g1)
+  cov2<-cov(g2)    
+  cov3<-cov(g3)
+  cov4<-cov(g4)   
+  cov5<-cov(g5)   
+  
+  s<-cov1+cov2+cov3+cov4+cov5
+  lrt<- ( q^(p*q) * prod(c(det(cov1),det(cov2),det(cov3),det(cov4),det(cov5))) / (det(s))^q )^(n/2)
+  W[i]<- -log(lrt)
+}
+
+
+lines(ecdf(W), col = 'darkred', lwd = 2)
+
+#EXAMPLE 9
+n    <- 1000
+p    <- 5
+q    <- 5
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityCovariances(t,n,p,q,type)
+x    <- seq(0,50,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion cdf
+plot(x,result$cdf,type="l",col="green")
+
+df<- (1/4)*(q-1)*p*(p+1)
+cdfValues<-pchisq(x,df)
+# Asymptotic cdf
+lines(x, cdfValues, type = "l",col="blue")
+
+# Number of simulated values
+N<- 50000
+
+W <- vector()  
+for (i in 1:N) {
+  g1<-matrix(rnorm(p*n),n,p)
+  
+  g2<-matrix(rnorm(p*n),n,p)
+  
+  g3<-matrix(rnorm(p*n),n,p)
+  
+  g4<-matrix(rnorm(p*n),n,p)
+  
+  g5<-matrix(rnorm(p*n),n,p)
+  
+  cov1<-cov(g1)
+  cov2<-cov(g2)    
+  cov3<-cov(g3)
+  cov4<-cov(g4)   
+  cov5<-cov(g5)   
+  
+  s<-cov1+cov2+cov3+cov4+cov5
+  lrt<- ( q^(p*q) * prod(c(det(cov1),det(cov2),det(cov3),det(cov4),det(cov5))) / (det(s))^q )^(n/2)
+  W[i]<- -log(lrt)
+}
+
+
+lines(ecdf(W), col = 'darkred', lwd = 2)
+
+#EXAMPLE 10
+n    <- 10000
+p    <- 5
+q    <- 5
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityCovariances(t,n,p,q,type)
+x    <- seq(0,50,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion cdf
+plot(x,result$cdf,type="l",col="green")
+
+df<- (1/4)*(q-1)*p*(p+1)
+cdfValues<-pchisq(x,df)
+# Asymptotic cdf
+lines(x, cdfValues, type = "l",col="blue")
+
+# Number of simulated values
+N<- 50000
+
+W <- vector()  
+for (i in 1:N) {
+  g1<-matrix(rnorm(p*n),n,p)
+  
+  g2<-matrix(rnorm(p*n),n,p)
+  
+  g3<-matrix(rnorm(p*n),n,p)
+  
+  g4<-matrix(rnorm(p*n),n,p)
+  
+  g5<-matrix(rnorm(p*n),n,p)
+  
+  cov1<-cov(g1)
+  cov2<-cov(g2)    
+  cov3<-cov(g3)
+  cov4<-cov(g4)   
+  cov5<-cov(g5)   
+  
+  s<-cov1+cov2+cov3+cov4+cov5
+  lrt<- ( q^(p*q) * prod(c(det(cov1),det(cov2),det(cov3),det(cov4),det(cov5))) / (det(s))^q )^(n/2)
+  W[i]<- -log(lrt)
+}
+
+
+lines(ecdf(W), col = 'darkred', lwd = 2)
+
+
+#EXAMPLE 11
+n    <- 100
+p    <- 5
+q    <- 10
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityCovariances(t,n,p,q,type)
+x    <- seq(25,100,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion cdf
+plot(x,result$cdf,type="l",col="green")
+
+df<- (1/4)*(q-1)*p*(p+1)
+cdfValues<-pchisq(x,df)
+# Asymptotic cdf
+lines(x, cdfValues, type = "l",col="blue")
+
+# Number of simulated values
+N<- 50000
+
+W <- vector()  
+for (i in 1:N) {
+  g1<-matrix(rnorm(p*n),n,p)
+  
+  g2<-matrix(rnorm(p*n),n,p)
+  
+  g3<-matrix(rnorm(p*n),n,p)
+  
+  g4<-matrix(rnorm(p*n),n,p)
+  
+  g5<-matrix(rnorm(p*n),n,p)
+  
+  g6<-matrix(rnorm(p*n),n,p)
+  
+  g7<-matrix(rnorm(p*n),n,p)
+  
+  g8<-matrix(rnorm(p*n),n,p)
+  
+  g9<-matrix(rnorm(p*n),n,p)
+  
+  g10<-matrix(rnorm(p*n),n,p)
+  
+  cov1<-cov(g1)
+  cov2<-cov(g2)    
+  cov3<-cov(g3)
+  cov4<-cov(g4)   
+  cov5<-cov(g5)   
+  cov6<-cov(g6)
+  cov7<-cov(g7)    
+  cov8<-cov(g8)
+  cov9<-cov(g9)   
+  cov10<-cov(g10)   
+  
+  s<-cov1+cov2+cov3+cov4+cov5+cov6+cov7+cov8+cov9+cov10
+  lrt<- ( q^(p*q) * prod(c(det(cov1),det(cov2),det(cov3),det(cov4),det(cov5),det(cov6),det(cov7),det(cov8),det(cov9),det(cov10))) / (det(s))^q )^(n/2)
+  W[i]<- -log(lrt)
+}
+
+
+lines(ecdf(W), col = 'darkred', lwd = 2)
+
+#EXAMPLE 12
+n    <- 10000
+p    <- 5
+q    <- 10
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityCovariances(t,n,p,q,type)
+x    <- seq(0,100,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion cdf
+plot(x,result$cdf,type="l",col="green")
+
+df<- (1/4)*(q-1)*p*(p+1)
+cdfValues<-pchisq(x,df)
+# Asymptotic cdf
+lines(x, cdfValues, type = "l",col="blue")
+
+# Number of simulated values
+N<- 50000
+
+W <- vector()  
+for (i in 1:N) {
+  g1<-matrix(rnorm(p*n),n,p)
+  
+  g2<-matrix(rnorm(p*n),n,p)
+  
+  g3<-matrix(rnorm(p*n),n,p)
+  
+  g4<-matrix(rnorm(p*n),n,p)
+  
+  g5<-matrix(rnorm(p*n),n,p)
+  
+  g6<-matrix(rnorm(p*n),n,p)
+  
+  g7<-matrix(rnorm(p*n),n,p)
+  
+  g8<-matrix(rnorm(p*n),n,p)
+  
+  g9<-matrix(rnorm(p*n),n,p)
+  
+  g10<-matrix(rnorm(p*n),n,p)
+  
+  cov1<-cov(g1)
+  cov2<-cov(g2)    
+  cov3<-cov(g3)
+  cov4<-cov(g4)   
+  cov5<-cov(g5)   
+  cov6<-cov(g6)
+  cov7<-cov(g7)    
+  cov8<-cov(g8)
+  cov9<-cov(g9)   
+  cov10<-cov(g10)   
+  
+  s<-cov1+cov2+cov3+cov4+cov5+cov6+cov7+cov8+cov9+cov10
+  lrt<- ( q^(p*q) * prod(c(det(cov1),det(cov2),det(cov3),det(cov4),det(cov5),det(cov6),det(cov7),det(cov8),det(cov9),det(cov10))) / (det(s))^q )^(n/2)
+  W[i]<- -log(lrt)
+}
+
+
+lines(ecdf(W), col = 'darkred', lwd = 2)
+
+#EXAMPLE 13
+n    <- 10000
+p    <- 5
+q    <- 10
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityCovariances(t,n,p,q,type)
+x    <- seq(40,100,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+#Numeric inversion cdf
+plot(x,result$cdf,type="l",col="green")
+
+df<- (1/4)*(q-1)*p*(p+1)
+cdfValues<-pchisq(x,df)
+# Asymptotic cdf
+lines(x, cdfValues, type = "l",col="blue")
+
+# Number of simulated values
+N<- 50000
+
+W <- vector()  
+for (i in 1:N) {
+  g1<-matrix(rnorm(p*n),n,p)
+  
+  g2<-matrix(rnorm(p*n),n,p)
+  
+  g3<-matrix(rnorm(p*n),n,p)
+  
+  g4<-matrix(rnorm(p*n),n,p)
+  
+  g5<-matrix(rnorm(p*n),n,p)
+  
+  g6<-matrix(rnorm(p*n),n,p)
+  
+  g7<-matrix(rnorm(p*n),n,p)
+  
+  g8<-matrix(rnorm(p*n),n,p)
+  
+  g9<-matrix(rnorm(p*n),n,p)
+  
+  g10<-matrix(rnorm(p*n),n,p)
+  
+  cov1<-cov(g1)
+  cov2<-cov(g2)    
+  cov3<-cov(g3)
+  cov4<-cov(g4)   
+  cov5<-cov(g5)   
+  cov6<-cov(g6)
+  cov7<-cov(g7)    
+  cov8<-cov(g8)
+  cov9<-cov(g9)   
+  cov10<-cov(g10)   
+  
+  s<-cov1+cov2+cov3+cov4+cov5+cov6+cov7+cov8+cov9+cov10
+  lrt<- ( q^(p*q) * prod(c(det(cov1),det(cov2),det(cov3),det(cov4),det(cov5),det(cov6),det(cov7),det(cov8),det(cov9),det(cov10))) / (det(s))^q )^(n/2)
+  W[i]<- -log(lrt)
+}
+
+lines(ecdf(W), col = 'darkred', lwd = 2)
+
+
+#EXAMPLE 1:
+n    <- 10
+p    <- 5
+q    <- 2
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityCovariances(t,n,p,q,type)
+x    <- seq(0,40,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+df<- (1/4)*(q-1)*p*(p+1)
+
+quantiles<-qchisq(prob,df)
+
+# Number of simulated values
+N<- 50000
+
+W <- vector()  
+
+for (i in 1:N) {
+  g1<-matrix(rnorm(p*n),n,p)
+  
+  g2<-matrix(rnorm(p*n),n,p)
+  
+  cov1<-cov(g1)
+  cov2<-cov(g2)    
+  s<-cov1+cov2
+  lrt<- (q^(p*q) *  prod(c(det(cov1),det(cov2))) / (det(s))^q )^(n/2)
+  W[i]<- -log(lrt)
+}
+
+empiric_qf <- quantile(W,prob)
+
+result$qf
+quantiles
+empiric_qf
+
+rejected <- sum(W > result$qf[2])
+# Error of the first kind
+false_positive_rate1 <- rejected / length(W)
+
+rejected <- sum(W > quantiles[2])
+# Error of the first kind
+false_positive_rate2 <- rejected / length(W)
+
+rejected <- sum(W > empiric_qf[2])
+# Error of the first kind
+false_positive_rate3 <- rejected / length(W)
+
+false_positive_rate1
+false_positive_rate2
+false_positive_rate3
+
+#EXAMPLE 2
+n    <- 20
+p    <- 5
+q    <- 2
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityCovariances(t,n,p,q,type)
+x    <- seq(0,30,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+df<- (1/4)*(q-1)*p*(p+1)
+quantiles<-qchisq(prob,df)
+
+# Number of simulated values
+N<- 50000
+
+W <- vector()  
+
+for (i in 1:N) {
+  g1<-matrix(rnorm(p*n),n,p)
+  
+  g2<-matrix(rnorm(p*n),n,p)
+  
+  cov1<-cov(g1)
+  cov2<-cov(g2)    
+  s<-cov1+cov2
+  lrt<- ( q^(p*q) * prod(c(det(cov1),det(cov2))) / (det(s))^q )^(n/2)
+  W[i]<- -log(lrt)
+}
+
+empiric_qf <- quantile(W,prob)
+
+result$qf
+quantiles
+empiric_qf
+
+rejected <- sum(W > result$qf[2])
+# Error of the first kind
+false_positive_rate1 <- rejected / length(W)
+
+rejected <- sum(W > quantiles[2])
+# Error of the first kind
+false_positive_rate2 <- rejected / length(W)
+
+rejected <- sum(W > empiric_qf[2])
+# Error of the first kind
+false_positive_rate3 <- rejected / length(W)
+
+false_positive_rate1
+false_positive_rate2
+false_positive_rate3
+
+#EXAMPLE 3
+n    <- 50
+p    <- 5
+q    <- 2
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityCovariances(t,n,p,q,type)
+x    <- seq(0,25,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+df<- (1/4)*(q-1)*p*(p+1)
+quantiles<-qchisq(prob,df)
+
+# Number of simulated values
+N<- 50000
+
+W <- vector()  
+
+for (i in 1:N) {
+  g1<-matrix(rnorm(p*n),n,p)
+  
+  g2<-matrix(rnorm(p*n),n,p)
+  
+  cov1<-cov(g1)
+  cov2<-cov(g2)    
+  s<-cov1+cov2
+  lrt<- ( q^(p*q) * prod(c(det(cov1),det(cov2))) / (det(s))^q )^(n/2)
+  W[i]<- -log(lrt)
+}
+
+empiric_qf <- quantile(W,prob)
+
+result$qf
+quantiles
+empiric_qf
+
+rejected <- sum(W > result$qf[2])
+# Error of the first kind
+false_positive_rate1 <- rejected / length(W)
+
+rejected <- sum(W > quantiles[2])
+# Error of the first kind
+false_positive_rate2 <- rejected / length(W)
+
+rejected <- sum(W > empiric_qf[2])
+# Error of the first kind
+false_positive_rate3 <- rejected / length(W)
+
+false_positive_rate1
+false_positive_rate2
+false_positive_rate3
+
+#EXAMPLE 4
+n    <- 100
+p    <- 5
+q    <- 2
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityCovariances(t,n,p,q,type)
+x    <- seq(0,25,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+df<- (1/4)*(q-1)*p*(p+1)
+quantiles<-qchisq(prob,df)
+
+# Number of simulated values
+N<- 50000
+
+W <- vector()  
+
+for (i in 1:N) {
+  g1<-matrix(rnorm(p*n),n,p)
+  
+  g2<-matrix(rnorm(p*n),n,p)
+  
+  cov1<-cov(g1)
+  cov2<-cov(g2)    
+  s<-cov1+cov2
+  lrt<- ( q^(p*q) * prod(c(det(cov1),det(cov2))) / (det(s))^q )^(n/2)
+  W[i]<- -log(lrt)
+}
+
+empiric_qf <- quantile(W,prob)
+
+result$qf
+quantiles
+empiric_qf
+
+rejected <- sum(W > result$qf[2])
+# Error of the first kind
+false_positive_rate1 <- rejected / length(W)
+
+rejected <- sum(W > quantiles[2])
+# Error of the first kind
+false_positive_rate2 <- rejected / length(W)
+
+rejected <- sum(W > empiric_qf[2])
+# Error of the first kind
+false_positive_rate3 <- rejected / length(W)
+
+false_positive_rate1
+false_positive_rate2
+false_positive_rate3
+
+#EXAMPLE 5
+n    <- 500
+p    <- 5
+q    <- 2
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityCovariances(t,n,p,q,type)
+x    <- seq(0,25,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+df<- (1/4)*(q-1)*p*(p+1)
+quantiles<-qchisq(prob,df)
+
+# Number of simulated values
+N<- 50000
+
+W <- vector()  
+
+for (i in 1:N) {
+  g1<-matrix(rnorm(p*n),n,p)
+  
+  g2<-matrix(rnorm(p*n),n,p)
+  
+  cov1<-cov(g1)
+  cov2<-cov(g2)    
+  s<-cov1+cov2
+  lrt<- ( q^(p*q) * prod(c(det(cov1),det(cov2))) / (det(s))^q )^(n/2)
+  W[i]<- -log(lrt)
+}
+
+empiric_qf <- quantile(W,prob)
+
+result$qf
+quantiles
+empiric_qf
+
+rejected <- sum(W > result$qf[2])
+# Error of the first kind
+false_positive_rate1 <- rejected / length(W)
+
+rejected <- sum(W > quantiles[2])
+# Error of the first kind
+false_positive_rate2 <- rejected / length(W)
+
+rejected <- sum(W > empiric_qf[2])
+# Error of the first kind
+false_positive_rate3 <- rejected / length(W)
+
+false_positive_rate1
+false_positive_rate2
+
+false_positive_rate3
+
+#EXAMPLE 6
+n    <- 1000
+p    <- 5
+q    <- 2
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityCovariances(t,n,p,q,type)
+x    <- seq(0,25,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+df<- (1/4)*(q-1)*p*(p+1)
+quantiles<-qchisq(prob,df)
+
+# Number of simulated values
+N<- 50000
+
+W <- vector()  
+
+for (i in 1:N) {
+  g1<-matrix(rnorm(p*n),n,p)
+  
+  g2<-matrix(rnorm(p*n),n,p)
+  
+  cov1<-cov(g1)
+  cov2<-cov(g2)    
+  s<-cov1+cov2
+  lrt<- ( q^(p*q) * prod(c(det(cov1),det(cov2))) / (det(s))^q )^(n/2)
+  W[i]<- -log(lrt)
+}
+
+empiric_qf <- quantile(W,prob)
+
+result$qf
+quantiles
+empiric_qf
+
+rejected <- sum(W > result$qf[2])
+# Error of the first kind
+false_positive_rate1 <- rejected / length(W)
+
+rejected <- sum(W > quantiles[2])
+# Error of the first kind
+false_positive_rate2 <- rejected / length(W)
+
+rejected <- sum(W > empiric_qf[2])
+# Error of the first kind
+false_positive_rate3 <- rejected / length(W)
+
+false_positive_rate1
+false_positive_rate2
+false_positive_rate3
+
+#EXAMPLE 7
+n    <- 10000
+p    <- 5
+q    <- 2
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityCovariances(t,n,p,q,type)
+x    <- seq(0,25,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+df<- (1/4)*(q-1)*p*(p+1)
+quantiles<-qchisq(prob,df)
+
+# Number of simulated values
+N<- 50000
+
+W <- vector()  
+
+for (i in 1:N) {
+  g1<-matrix(rnorm(p*n),n,p)
+  
+  g2<-matrix(rnorm(p*n),n,p)
+  
+  cov1<-cov(g1)
+  cov2<-cov(g2)    
+  s<-cov1+cov2
+  lrt<- ( q^(p*q) * prod(c(det(cov1),det(cov2))) / (det(s))^q )^(n/2)
+  W[i]<- -log(lrt)
+}
+
+empiric_qf <- quantile(W,prob)
+
+result$qf
+quantiles
+empiric_qf
+
+rejected <- sum(W > result$qf[2])
+# Error of the first kind
+false_positive_rate1 <- rejected / length(W)
+
+rejected <- sum(W > quantiles[2])
+# Error of the first kind
+false_positive_rate2 <- rejected / length(W)
+
+rejected <- sum(W > empiric_qf[2])
+# Error of the first kind
+false_positive_rate3 <- rejected / length(W)
+
+false_positive_rate1
+false_positive_rate2
+false_positive_rate3
+
+#EXAMPLE 8
+n    <- 100
+p    <- 5
+q    <- 5
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityCovariances(t,n,p,q,type)
+x    <- seq(0,50,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+df<- (1/4)*(q-1)*p*(p+1)
+quantiles<-qchisq(prob,df)
+
+# Number of simulated values
+N<- 50000
+
+W <- vector()  
+
+for (i in 1:N) {
+  g1<-matrix(rnorm(p*n),n,p)
+  
+  g2<-matrix(rnorm(p*n),n,p)
+
+  g3<-matrix(rnorm(p*n),n,p)
+
+  g4<-matrix(rnorm(p*n),n,p)
+
+  g5<-matrix(rnorm(p*n),n,p)
+  
+  cov1<-cov(g1)
+  cov2<-cov(g2)
+  cov3<-cov(g3)
+  cov4<-cov(g4)
+  cov5<-cov(g5)
+  s<-cov1+cov2+cov3+cov4+cov5
+  lrt<- ( q^(p*q) * prod(c(det(cov1),det(cov2),det(cov3),det(cov4),det(cov5))) / (det(s))^q )^(n/2)
+  W[i]<- -log(lrt)
+}
+
+
+empiric_qf <- quantile(W,prob)
+
+result$qf
+quantiles
+empiric_qf
+
+rejected <- sum(W > result$qf[2])
+# Error of the first kind
+false_positive_rate1 <- rejected / length(W)
+
+rejected <- sum(W > quantiles[2])
+# Error of the first kind
+false_positive_rate2 <- rejected / length(W)
+
+rejected <- sum(W > empiric_qf[2])
+# Error of the first kind
+false_positive_rate3 <- rejected / length(W)
+
+false_positive_rate1
+false_positive_rate2
+false_positive_rate3
+
+#EXAMPLE 9
+n    <- 1000
+p    <- 5
+q    <- 5
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityCovariances(t,n,p,q,type)
+x    <- seq(0,50,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+df<- (1/4)*(q-1)*p*(p+1)
+quantiles<-qchisq(prob,df)
+
+# Number of simulated values
+N<- 50000
+
+W <- vector()  
+
+for (i in 1:N) {
+  g1<-matrix(rnorm(p*n),n,p)
+  
+  g2<-matrix(rnorm(p*n),n,p)
+  
+  g3<-matrix(rnorm(p*n),n,p)
+  
+  g4<-matrix(rnorm(p*n),n,p)
+  
+  g5<-matrix(rnorm(p*n),n,p)
+  
+  cov1<-cov(g1)
+  cov2<-cov(g2)
+  cov3<-cov(g3)
+  cov4<-cov(g4)
+  cov5<-cov(g5)
+  s<-cov1+cov2+cov3+cov4+cov5
+  lrt<- ( q^(p*q) * prod(c(det(cov1),det(cov2),det(cov3),det(cov4),det(cov5))) / (det(s))^q )^(n/2)
+  W[i]<- -log(lrt)
+}
+
+
+empiric_qf <- quantile(W,prob)
+
+result$qf
+quantiles
+empiric_qf
+
+rejected <- sum(W > result$qf[2])
+# Error of the first kind
+false_positive_rate1 <- rejected / length(W)
+
+rejected <- sum(W > quantiles[2])
+# Error of the first kind
+false_positive_rate2 <- rejected / length(W)
+
+rejected <- sum(W > empiric_qf[2])
+# Error of the first kind
+false_positive_rate3 <- rejected / length(W)
+
+false_positive_rate1
+false_positive_rate2
+false_positive_rate3
+
+#EXAMPLE 10
+n    <- 10000
+p    <- 5
+q    <- 5
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityCovariances(t,n,p,q,type)
+x    <- seq(0,50,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+df<- (1/4)*(q-1)*p*(p+1)
+quantiles<-qchisq(prob,df)
+
+# Number of simulated values
+N<- 50000
+
+W <- vector()  
+
+for (i in 1:N) {
+  g1<-matrix(rnorm(p*n),n,p)
+  
+  g2<-matrix(rnorm(p*n),n,p)
+  
+  g3<-matrix(rnorm(p*n),n,p)
+  
+  g4<-matrix(rnorm(p*n),n,p)
+  
+  g5<-matrix(rnorm(p*n),n,p)
+  
+  cov1<-cov(g1)
+  cov2<-cov(g2)
+  cov3<-cov(g3)
+  cov4<-cov(g4)
+  cov5<-cov(g5)
+  s<-cov1+cov2+cov3+cov4+cov5
+  lrt<- ( q^(p*q) * prod(c(det(cov1),det(cov2),det(cov3),det(cov4),det(cov5))) / (det(s))^q )^(n/2)
+  W[i]<- -log(lrt)
+}
+
+
+empiric_qf <- quantile(W,prob)
+
+result$qf
+quantiles
+empiric_qf
+
+rejected <- sum(W > result$qf[2])
+# Error of the first kind
+false_positive_rate1 <- rejected / length(W)
+
+rejected <- sum(W > quantiles[2])
+# Error of the first kind
+false_positive_rate2 <- rejected / length(W)
+
+rejected <- sum(W > empiric_qf[2])
+# Error of the first kind
+false_positive_rate3 <- rejected / length(W)
+
+false_positive_rate1
+false_positive_rate2
+false_positive_rate3
+
+#EXAMPLE 11
+n    <- 100
+p    <- 5
+q    <- 10
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityCovariances(t,n,p,q,type)
+x    <- seq(0,50,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+df<- (1/4)*(q-1)*p*(p+1)
+quantiles<-qchisq(prob,df)
+
+# Number of simulated values
+N<- 50000
+
+W <- vector()  
+
+for (i in 1:N) {
+  g1<-matrix(rnorm(p*n),n,p)
+  
+  g2<-matrix(rnorm(p*n),n,p)
+  
+  g3<-matrix(rnorm(p*n),n,p)
+  
+  g4<-matrix(rnorm(p*n),n,p)
+  
+  g5<-matrix(rnorm(p*n),n,p)
+  
+  g6<-matrix(rnorm(p*n),n,p)
+  
+  g7<-matrix(rnorm(p*n),n,p)
+  
+  g8<-matrix(rnorm(p*n),n,p)
+  
+  g9<-matrix(rnorm(p*n),n,p)
+  
+  g10<-matrix(rnorm(p*n),n,p)
+  
+  cov1<-cov(g1)
+  cov2<-cov(g2)
+  cov3<-cov(g3)
+  cov4<-cov(g4)
+  cov5<-cov(g5)
+  cov6<-cov(g6)
+  cov7<-cov(g7)
+  cov8<-cov(g8)
+  cov9<-cov(g9)
+  cov10<-cov(g10)
+  
+  
+    s<-cov1+cov2+cov3+cov4+cov5+cov6+cov7+cov8+cov9+cov10
+  lrt<- ( q^(p*q) * prod(c(det(cov1),det(cov2),det(cov3),det(cov4),det(cov5),det(cov6),det(cov7),det(cov8),det(cov9),det(cov10))) / (det(s))^q )^(n/2)
+  W[i]<- -log(lrt)
+}
+
+
+empiric_qf <- quantile(W,prob)
+
+result$qf
+quantiles
+empiric_qf
+
+rejected <- sum(W > result$qf[2])
+# Error of the first kind
+false_positive_rate1 <- rejected / length(W)
+
+rejected <- sum(W > quantiles[2])
+# Error of the first kind
+false_positive_rate2 <- rejected / length(W)
+
+rejected <- sum(W > empiric_qf[2])
+# Error of the first kind
+false_positive_rate3 <- rejected / length(W)
+
+false_positive_rate1
+false_positive_rate2
+false_positive_rate3
+
+#EXAMPLE 12
+n    <- 1000
+p    <- 5
+q    <- 10
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityCovariances(t,n,p,q,type)
+x    <- seq(30,100,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+df<- (1/4)*(q-1)*p*(p+1)
+quantiles<-qchisq(prob,df)
+
+# Number of simulated values
+N<- 50000
+
+W <- vector()  
+
+for (i in 1:N) {
+  g1<-matrix(rnorm(p*n),n,p)
+  
+  g2<-matrix(rnorm(p*n),n,p)
+  
+  g3<-matrix(rnorm(p*n),n,p)
+  
+  g4<-matrix(rnorm(p*n),n,p)
+  
+  g5<-matrix(rnorm(p*n),n,p)
+  
+  g6<-matrix(rnorm(p*n),n,p)
+  
+  g7<-matrix(rnorm(p*n),n,p)
+  
+  g8<-matrix(rnorm(p*n),n,p)
+  
+  g9<-matrix(rnorm(p*n),n,p)
+  
+  g10<-matrix(rnorm(p*n),n,p)
+  
+  cov1<-cov(g1)
+  cov2<-cov(g2)
+  cov3<-cov(g3)
+  cov4<-cov(g4)
+  cov5<-cov(g5)
+  cov6<-cov(g6)
+  cov7<-cov(g7)
+  cov8<-cov(g8)
+  cov9<-cov(g9)
+  cov10<-cov(g10)
+  
+  
+  s<-cov1+cov2+cov3+cov4+cov5+cov6+cov7+cov8+cov9+cov10
+  lrt<- ( q^(p*q) * prod(c(det(cov1),det(cov2),det(cov3),det(cov4),det(cov5),det(cov6),det(cov7),det(cov8),det(cov9),det(cov10))) / (det(s))^q )^(n/2)
+  W[i]<- -log(lrt)
+}
+
+
+empiric_qf <- quantile(W,prob)
+
+result$qf
+quantiles
+empiric_qf
+
+rejected <- sum(W > result$qf[2])
+# Error of the first kind
+false_positive_rate1 <- rejected / length(W)
+
+rejected <- sum(W > quantiles[2])
+# Error of the first kind
+false_positive_rate2 <- rejected / length(W)
+
+rejected <- sum(W > empiric_qf[2])
+# Error of the first kind
+false_positive_rate3 <- rejected / length(W)
+
+false_positive_rate1
+false_positive_rate2
+false_positive_rate3
+
+#EXAMPLE 13
+n    <- 10000
+p    <- 5
+q    <- 10
+type <- 'standard'
+cf   <- function(t) cfTest_EqualityCovariances(t,n,p,q,type)
+x    <- seq(30,100,length.out=201)
+prob <- c(0.9, 0.95, 0.99)
+options <- list(isPlot=FALSE)
+options$xMin <- 0
+result <- cf2DistGP(cf,x,prob,options)
+
+df<- (1/4)*(q-1)*p*(p+1)
+quantiles<-qchisq(prob,df)
+
+# Number of simulated values
+N<- 50000
+
+W <- vector()  
+
+for (i in 1:N) {
+  g1<-matrix(rnorm(p*n),n,p)
+  
+  g2<-matrix(rnorm(p*n),n,p)
+  
+  g3<-matrix(rnorm(p*n),n,p)
+  
+  g4<-matrix(rnorm(p*n),n,p)
+  
+  g5<-matrix(rnorm(p*n),n,p)
+  
+  g6<-matrix(rnorm(p*n),n,p)
+  
+  g7<-matrix(rnorm(p*n),n,p)
+  
+  g8<-matrix(rnorm(p*n),n,p)
+  
+  g9<-matrix(rnorm(p*n),n,p)
+  
+  g10<-matrix(rnorm(p*n),n,p)
+  
+  cov1<-cov(g1)
+  cov2<-cov(g2)
+  cov3<-cov(g3)
+  cov4<-cov(g4)
+  cov5<-cov(g5)
+  cov6<-cov(g6)
+  cov7<-cov(g7)
+  cov8<-cov(g8)
+  cov9<-cov(g9)
+  cov10<-cov(g10)
+  
+  
+  s<-cov1+cov2+cov3+cov4+cov5+cov6+cov7+cov8+cov9+cov10
+  lrt<- ( q^(p*q) * prod(c(det(cov1),det(cov2),det(cov3),det(cov4),det(cov5),det(cov6),det(cov7),det(cov8),det(cov9),det(cov10))) / (det(s))^q )^(n/2)
+  W[i]<- -log(lrt)
+}
+
+
+empiric_qf <- quantile(W,prob)
+
+result$qf
+quantiles
+empiric_qf
+
+rejected <- sum(W > result$qf[2])
+# Error of the first kind
+false_positive_rate1 <- rejected / length(W)
+
+rejected <- sum(W > quantiles[2])
+# Error of the first kind
+false_positive_rate2 <- rejected / length(W)
+
+rejected <- sum(W > empiric_qf[2])
+# Error of the first kind
+false_positive_rate3 <- rejected / length(W)
+
+false_positive_rate1
+false_positive_rate2
+false_positive_rate3
